@@ -1,0 +1,3 @@
+name: NexusHub
+version: ${project.version}
+main: com.thenexusreborn.hub.NexusHub
