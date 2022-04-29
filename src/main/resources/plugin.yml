@@ -2,5 +2,7 @@ name: NexusHub
 version: ${project.version}
 main: com.thenexusreborn.hub.NexusHub
 depend: [NexusCore]
+description: The Hub plugin for The Nexus Reborn
+author: Firestar311
 commands:
   setspawn:
