@@ -5,6 +5,7 @@ import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.hub.scoreboard.HubScoreboard;
 import com.thenexusreborn.nexuscore.api.events.NexusPlayerLoadEvent;
 import com.thenexusreborn.nexuscore.player.SpigotNexusPlayer;
+import com.thenexusreborn.nexuscore.scoreboard.SpigotNexusScoreboard;
 import com.thenexusreborn.nexuscore.util.MCUtils;
 import net.minecraft.server.v1_8_R3.*;
 import net.minecraft.server.v1_8_R3.PacketPlayOutTitle.EnumTitleAction;
