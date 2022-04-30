@@ -48,7 +48,7 @@ public class PlayerListener implements Listener {
             nexusPlayer.sendMessage("&6&l>> &dShop to support us: &ehttps://shop.thenexusreborn.com/");
             nexusPlayer.sendMessage("&6&l>> &dFor now please use &e/server &dto navigate.");
     
-            PacketPlayOutTitle titlePacket = new PacketPlayOutTitle(EnumTitleAction.TITLE, new ChatComponentText(MCUtils.color("&e&lPlease look at the message in chat.")));
+            PacketPlayOutTitle titlePacket = new PacketPlayOutTitle(EnumTitleAction.SUBTITLE, new ChatComponentText(MCUtils.color("&e&lPlease look at chat.")));
             ((CraftPlayer) ((SpigotNexusPlayer) nexusPlayer).getPlayer()).getHandle().playerConnection.sendPacket(titlePacket);
         }, 20L);
     }
