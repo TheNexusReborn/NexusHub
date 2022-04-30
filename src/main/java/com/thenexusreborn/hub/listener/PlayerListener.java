@@ -1,6 +1,5 @@
 package com.thenexusreborn.hub.listener;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.Lister.Pack;
 import com.thenexusreborn.api.player.NexusPlayer;
 import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.hub.scoreboard.HubScoreboard;
