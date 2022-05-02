@@ -1,5 +1,8 @@
 package com.thenexusreborn.hub;
 
+import com.thenexusreborn.api.*;
+import com.thenexusreborn.api.multicraft.MulticraftAPI;
+import com.thenexusreborn.api.server.ServerInfo;
 import com.thenexusreborn.hub.cmds.SetSpawnCmd;
 import com.thenexusreborn.hub.listener.PlayerListener;
 import com.thenexusreborn.nexuscore.NexusCore;
@@ -55,6 +58,20 @@ public class NexusHub extends JavaPlugin {
                 }
             }
         }.runTaskTimer(this, 1L, 1L);
+    
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                ServerInfo serverInfo = NexusAPI.getApi().getServerManager().getCurrentServer();
+                if (NexusAPI.getApi().getEnvironment() != Environment.DEVELOPMENT) {
+                    serverInfo.setStatus(MulticraftAPI.getInstance().getServerStatus(serverInfo.getMulticraftId()).status);
+                } else {
+                    serverInfo.setStatus("online");
+                }
+                serverInfo.setPlayers(Bukkit.getOnlinePlayers().size());
+                NexusAPI.getApi().getDataManager().pushServerInfo(serverInfo);
+            }
+        }.runTaskTimerAsynchronously(this, 20L, 20L);
     }
     
     @Override
