@@ -1,12 +1,12 @@
 package com.thenexusreborn.hub.scoreboard;
 
+import com.thenexusreborn.api.helper.StringHelper;
 import com.thenexusreborn.api.player.NexusPlayer;
 import com.thenexusreborn.api.scoreboard.NexusScoreboard;
 import com.thenexusreborn.api.scoreboard.wrapper.*;
 import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.nexuscore.scoreboard.SpigotScoreboardView;
 import com.thenexusreborn.nexuscore.util.MCUtils;
-import com.thenexusreborn.nexuscore.util.helper.StringHelper;
 import org.bukkit.*;
 
 import java.util.*;

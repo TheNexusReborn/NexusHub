@@ -8,7 +8,7 @@ import com.thenexusreborn.nexuscore.NexusCore;
 import com.thenexusreborn.nexuscore.menu.element.button.*;
 import com.thenexusreborn.nexuscore.menu.gui.Menu;
 import com.thenexusreborn.nexuscore.util.builder.ItemBuilder;
-import com.thenexusreborn.nexuscore.util.helper.StringHelper;
+import com.thenexusreborn.api.helper.StringHelper;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
