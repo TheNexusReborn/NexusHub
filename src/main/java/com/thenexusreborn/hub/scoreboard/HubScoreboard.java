@@ -1,5 +1,6 @@
 package com.thenexusreborn.hub.scoreboard;
 
+import com.thenexusreborn.api.NexusAPI;
 import com.thenexusreborn.api.player.NexusPlayer;
 import com.thenexusreborn.api.scoreboard.NexusScoreboard;
 import com.thenexusreborn.api.scoreboard.wrapper.*;
@@ -65,7 +66,7 @@ public class HubScoreboard extends SpigotScoreboardView {
         addEntry(objective, serverLabel, MCUtils.color("&6&lSERVER:"), 5);
     
         ITeam serverValue = scoreboard.registerNewTeam(serverValueName);
-        addEntry(objective, serverValue, MCUtils.color("&f" + NexusHub.getPlugin(NexusHub.class).getNexusCore().getConfig().getString("serverName")), 4);
+        addEntry(objective, serverValue, MCUtils.color("&f" + NexusAPI.getApi().getServerManager().getCurrentServer().getName()), 4);
     }
     
     private String formatBalance(double balance) {
