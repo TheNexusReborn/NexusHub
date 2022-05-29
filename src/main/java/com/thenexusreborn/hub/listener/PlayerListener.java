@@ -59,7 +59,7 @@ public class PlayerListener implements Listener {
         nexusPlayer.getScoreboard().setView(new HubScoreboard(e.getNexusPlayer().getScoreboard()));
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             nexusPlayer.sendMessage("&6&l>> &5Welcome to &d&lThe Nexus Reborn&5!");
-            nexusPlayer.sendMessage("&6&l>> &5We are currently in &aPre-Alpha&d.");
+            nexusPlayer.sendMessage("&6&l>> &5We are currently in &aAlpha&d.");
             nexusPlayer.sendMessage("&6&l>> &5Shop to support us: &ehttps://shop.thenexusreborn.com/");
             nexusPlayer.sendMessage("&6&l>> &5Please use the &aGame Selector &dto navigate.");
     
