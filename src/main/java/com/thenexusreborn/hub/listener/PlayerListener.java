@@ -69,6 +69,7 @@ public class PlayerListener implements Listener {
             meta.setDisplayName(MCUtils.color("&e&lGAME SELECTOR &7&o(Right Click)"));
             compass.setItemMeta(meta);
             player.getInventory().setItem(4, compass);
+            e.setJoinMessage(null);
         }, 20L);
     }
     
