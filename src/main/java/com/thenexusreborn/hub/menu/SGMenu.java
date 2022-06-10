@@ -4,6 +4,7 @@ import com.google.common.io.*;
 import com.thenexusreborn.api.NexusAPI;
 import com.thenexusreborn.api.helper.StringHelper;
 import com.thenexusreborn.api.server.ServerInfo;
+import com.thenexusreborn.api.tournament.Tournament;
 import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.nexuscore.NexusCore;
 import com.thenexusreborn.nexuscore.menu.element.button.*;
@@ -12,7 +13,7 @@ import com.thenexusreborn.nexuscore.util.builder.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class SGMenu extends Menu {
     public SGMenu(NexusHub plugin) {
@@ -40,7 +41,20 @@ public class SGMenu extends Menu {
                 String[] stateSplit = server.getState().split(":");
                 String stage = stateSplit[0];
                 String state = stateSplit[1];
-                itemBuilder.lore("&a" + StringHelper.capitalizeEveryWord(stage) + " &7- &e" + state, "&d" + server.getPlayers() + "&5/24");
+                List<String> lore = new LinkedList<>();
+                lore.add("&a" + StringHelper.capitalizeEveryWord(stage) + " &7- &e" + state);
+                lore.add("&d" + server.getPlayers() + "&5/24");
+                Tournament tournament = NexusAPI.getApi().getTournament();
+                if (tournament != null && tournament.isActive()) {
+                    for (String tournamentServer : tournament.getServers()) {
+                        if (tournamentServer.equalsIgnoreCase("all") || tournamentServer.equalsIgnoreCase("network") || tournamentServer.equalsIgnoreCase(NexusAPI.getApi().getServerManager().getCurrentServer().getName())) {
+                            lore.add("");
+                            lore.add("&a&lTOURNAMENT");
+                            break;
+                        }
+                    }
+                }
+                itemBuilder.lore(lore);
             } else {
                 itemBuilder.lore("&cOffline");
             }

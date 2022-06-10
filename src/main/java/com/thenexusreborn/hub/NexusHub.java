@@ -3,10 +3,11 @@ package com.thenexusreborn.hub;
 import com.thenexusreborn.api.*;
 import com.thenexusreborn.api.multicraft.MulticraftAPI;
 import com.thenexusreborn.api.server.ServerInfo;
+import com.thenexusreborn.api.tournament.Tournament;
 import com.thenexusreborn.hub.cmds.SetSpawnCmd;
 import com.thenexusreborn.hub.listener.PlayerListener;
 import com.thenexusreborn.nexuscore.NexusCore;
-import com.thenexusreborn.nexuscore.util.ServerProperties;
+import com.thenexusreborn.nexuscore.util.*;
 import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -72,6 +73,17 @@ public class NexusHub extends JavaPlugin {
                 NexusAPI.getApi().getDataManager().pushServerInfo(serverInfo);
             }
         }.runTaskTimerAsynchronously(this, 20L, 20L);
+        
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                Tournament tournament = NexusAPI.getApi().getTournament();
+                if (tournament != null && tournament.isActive()) {
+                    Bukkit.broadcastMessage(MCUtils.color("&6&l>> &aThere is an active tournament going on right now."));
+                    Bukkit.broadcastMessage(MCUtils.color("&6&l> &aLook for the servers that have tournament in the button description"));
+                }
+            }
+        }.runTaskTimer(this, 20L, 2400L);
     }
     
     @Override
