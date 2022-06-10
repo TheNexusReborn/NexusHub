@@ -2,12 +2,13 @@ package com.thenexusreborn.hub.scoreboard;
 
 import com.thenexusreborn.api.NexusAPI;
 import com.thenexusreborn.api.helper.StringHelper;
-import com.thenexusreborn.api.player.NexusPlayer;
+import com.thenexusreborn.api.player.*;
 import com.thenexusreborn.api.scoreboard.NexusScoreboard;
 import com.thenexusreborn.api.scoreboard.wrapper.*;
 import com.thenexusreborn.nexuscore.scoreboard.SpigotScoreboardView;
 import com.thenexusreborn.nexuscore.util.MCUtils;
 import org.bukkit.*;
+import org.bukkit.entity.Player;
 
 import java.util.*;
 
@@ -79,10 +80,28 @@ public class HubScoreboard extends SpigotScoreboardView {
     public void update() {
         NexusPlayer player = this.scoreboard.getPlayer();
         IScoreboard scoreboard = this.scoreboard.getScoreboard();
-        scoreboard.getTeam(this.rankValueName).setPrefix(MCUtils.color(player.getRank().getColor() + StringHelper.capitalizeEveryWord(player.getRank().name())));
+        String rankName;
+        if (player.getRank() == Rank.MEMBER) {
+            rankName = "Member";
+        } else {
+            rankName = player.getRank().name();
+        }
+        scoreboard.getTeam(this.rankValueName).setPrefix(MCUtils.color(player.getRank().getColor() + rankName));
         scoreboard.getTeam(this.creditsValueName).setSuffix(MCUtils.color("&3" + formatBalance(player.getStatValue("credits"))));
         scoreboard.getTeam(this.nexitesValueName).setSuffix(MCUtils.color("&9" + formatBalance(player.getStatValue("nexites"))));
-        scoreboard.getTeam(this.playersValueName).setPrefix(MCUtils.color("&f" + Bukkit.getServer().getOnlinePlayers().size() + "/" + Bukkit.getServer().getMaxPlayers()));
+        int onlinePlayers = 0;
+        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+            NexusPlayer onp = NexusAPI.getApi().getPlayerManager().getNexusPlayer(onlinePlayer.getUniqueId());
+            if (onp == null) continue;
+            if (onp.getPreferences().get("incognito").getValue() || onp.getPreferences().get("vanish").getValue()) {
+                if (player.getRank().ordinal() <= Rank.HELPER.ordinal()) {
+                    onlinePlayers++;
+                }
+            } else {
+                onlinePlayers++;
+            }
+        }
+        scoreboard.getTeam(this.playersValueName).setPrefix(MCUtils.color("&f" + onlinePlayers + "/" + Bukkit.getServer().getMaxPlayers()));
     }
     
     @Override

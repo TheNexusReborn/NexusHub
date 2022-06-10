@@ -17,6 +17,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 @SuppressWarnings("DuplicatedCode")
 public class PlayerListener implements Listener {
@@ -65,32 +66,54 @@ public class PlayerListener implements Listener {
         Preference vanish = nexusPlayer.getPreferences().get("vanish");
     
         for (Player player : Bukkit.getOnlinePlayers()) {
-            NexusPlayer np = NexusAPI.getApi().getPlayerManager().getNexusPlayer(player.getUniqueId());
-            if (incognito.getValue()) {
-                if (np.getRank().ordinal() > Rank.HELPER.ordinal()) {
-                    player.hidePlayer(nexusPlayer.getPlayer());
-                }
-            }
-            
-            if (np.getPreferences().get("incognito").getValue()) {
-                if (np.getRank().ordinal() > Rank.HELPER.ordinal()) {
-                    nexusPlayer.getPlayer().hidePlayer(player);
-                }
-            }
-            
-            if (vanish.getValue()) {
-                if (np.getRank().ordinal() > Rank.HELPER.ordinal()) {
-                    player.hidePlayer(nexusPlayer.getPlayer());
-                }
-            }
+            BukkitRunnable runnable = new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if (Bukkit.getPlayer(player.getUniqueId()) == null) {
+                        cancel();
+                        return;
+                    }
+                    
+                    NexusPlayer np = NexusAPI.getApi().getPlayerManager().getNexusPlayer(player.getUniqueId());
+                    if (np == null) {
+                        return;
+                    }
+                    if (incognito.getValue()) {
+                        if (np.getRank().ordinal() > Rank.HELPER.ordinal()) {
+                            player.hidePlayer(nexusPlayer.getPlayer());
+                        }
+                    }
     
-            if (np.getPreferences().get("vanish").getValue()) {
-                if (np.getRank().ordinal() > Rank.HELPER.ordinal()) {
-                    nexusPlayer.getPlayer().hidePlayer(player);
+                    if (np.getPreferences().get("incognito").getValue()) {
+                        if (nexusPlayer.getRank().ordinal() > Rank.HELPER.ordinal()) {
+                            nexusPlayer.getPlayer().hidePlayer(player);
+                        }
+                    }
+    
+                    if (vanish.getValue()) {
+                        if (np.getRank().ordinal() > Rank.HELPER.ordinal()) {
+                            player.hidePlayer(nexusPlayer.getPlayer());
+                        }
+                    }
+    
+                    if (np.getPreferences().get("vanish").getValue()) {
+                        if (nexusPlayer.getRank().ordinal() > Rank.HELPER.ordinal()) {
+                            nexusPlayer.getPlayer().hidePlayer(player);
+                        }
+                    }
+                    
+                    cancel();
                 }
+            };
+            
+            if (NexusAPI.getApi().getPlayerManager().getNexusPlayer(player.getUniqueId()) == null) {
+                runnable.runTaskTimer(plugin, 1L, 10L);
+            } else {
+                runnable.runTask(plugin);
             }
+            
         }
-        
+        e.setJoinMessage(null);
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             nexusPlayer.sendMessage("&6&l>> &5Welcome to &d&lThe Nexus Reborn&5!");
             nexusPlayer.sendMessage("&6&l>> &5We are currently in &aAlpha&d.");
@@ -103,7 +126,6 @@ public class PlayerListener implements Listener {
             meta.setDisplayName(MCUtils.color("&e&lGAME SELECTOR &7&o(Right Click)"));
             compass.setItemMeta(meta);
             player.getInventory().setItem(4, compass);
-            e.setJoinMessage(null);
         }, 20L);
     }
     
@@ -137,6 +159,11 @@ public class PlayerListener implements Listener {
                 }
             }
         }
+    }
+    
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent e) {
+        e.setQuitMessage(null);
     }
     
     @EventHandler
