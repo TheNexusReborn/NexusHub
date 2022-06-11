@@ -7,7 +7,7 @@ import com.thenexusreborn.api.server.ServerInfo;
 import com.thenexusreborn.api.tournament.Tournament;
 import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.nexuscore.NexusCore;
-import com.thenexusreborn.nexuscore.menu.element.button.*;
+import com.thenexusreborn.nexuscore.menu.element.button.Button;
 import com.thenexusreborn.nexuscore.menu.gui.Menu;
 import com.thenexusreborn.nexuscore.util.builder.ItemBuilder;
 import org.bukkit.Material;
@@ -38,23 +38,27 @@ public class SGMenu extends Menu {
             ItemBuilder itemBuilder = ItemBuilder.start(material).displayName("&6" + server.getName());
             
             if (material != Material.BEDROCK) {
-                String[] stateSplit = server.getState().split(":");
-                String stage = stateSplit[0];
-                String state = stateSplit[1];
-                List<String> lore = new LinkedList<>();
-                lore.add("&a" + StringHelper.capitalizeEveryWord(stage) + " &7- &e" + state);
-                lore.add("&d" + server.getPlayers() + "&5/24");
-                Tournament tournament = NexusAPI.getApi().getTournament();
-                if (tournament != null && tournament.isActive()) {
-                    for (String tournamentServer : tournament.getServers()) {
-                        if (tournamentServer.equalsIgnoreCase("all") || tournamentServer.equalsIgnoreCase("network") || tournamentServer.equalsIgnoreCase(NexusAPI.getApi().getServerManager().getCurrentServer().getName())) {
-                            lore.add("");
-                            lore.add("&a&lTOURNAMENT");
-                            break;
+                try {
+                    String[] stateSplit = server.getState().split(":");
+                    String stage = stateSplit[0];
+                    String state = stateSplit[1];
+                    List<String> lore = new LinkedList<>();
+                    lore.add("&a" + StringHelper.capitalizeEveryWord(stage) + " &7- &e" + state);
+                    lore.add("&d" + server.getPlayers() + "&5/24");
+                    Tournament tournament = NexusAPI.getApi().getTournament();
+                    if (tournament != null && tournament.isActive()) {
+                        for (String tournamentServer : tournament.getServers()) {
+                            if (tournamentServer.equalsIgnoreCase("all") || tournamentServer.equalsIgnoreCase("network") || tournamentServer.equalsIgnoreCase(NexusAPI.getApi().getServerManager().getCurrentServer().getName())) {
+                                lore.add("");
+                                lore.add("&a&lTOURNAMENT");
+                                break;
+                            }
                         }
                     }
+                    itemBuilder.lore(lore);
+                } catch (Exception e) {
+                    itemBuilder.lore("&cError");
                 }
-                itemBuilder.lore(lore);
             } else {
                 itemBuilder.lore("&cOffline");
             }
