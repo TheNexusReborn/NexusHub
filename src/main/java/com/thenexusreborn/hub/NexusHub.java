@@ -7,13 +7,13 @@ import com.thenexusreborn.api.tournament.Tournament;
 import com.thenexusreborn.hub.cmds.SetSpawnCmd;
 import com.thenexusreborn.hub.listener.PlayerListener;
 import com.thenexusreborn.nexuscore.NexusCore;
+import com.thenexusreborn.nexuscore.api.NexusSpigotPlugin;
 import com.thenexusreborn.nexuscore.util.*;
 import org.bukkit.*;
 import org.bukkit.entity.*;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class NexusHub extends JavaPlugin {
+public class NexusHub extends NexusSpigotPlugin {
     
     private NexusCore nexusCore;
     
