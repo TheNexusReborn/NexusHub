@@ -22,7 +22,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 @SuppressWarnings("DuplicatedCode")
 public class PlayerListener implements Listener {
     
-    private NexusHub plugin;
+    private final NexusHub plugin;
     
     public PlayerListener(NexusHub plugin) {
         this.plugin = plugin;
