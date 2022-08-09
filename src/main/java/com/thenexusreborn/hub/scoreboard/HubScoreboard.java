@@ -41,7 +41,8 @@ public class HubScoreboard extends SpigotScoreboardView {
         
         ITeam creditsValue = scoreboard.registerNewTeam(creditsValueName);
         creditsValue.setPrefix(MCUtils.color("&fCredits: "));
-        creditsValue.setSuffix(MCUtils.color("&3" + formatBalance((double) player.getStatValue("credits"))));
+        double credits = (double) player.getStatValue("credits");
+        creditsValue.setSuffix(MCUtils.color("&3" + formatBalance(credits)));
         addEntry(objective, creditsValue, ChatColor.DARK_RED.toString(), 11);
         
         ITeam nexitesValue = scoreboard.registerNewTeam(nexitesValueName);
