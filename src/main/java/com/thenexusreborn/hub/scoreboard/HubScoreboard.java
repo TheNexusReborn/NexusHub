@@ -94,7 +94,7 @@ public class HubScoreboard extends SpigotScoreboardView {
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             NexusPlayer onp = NexusAPI.getApi().getPlayerManager().getNexusPlayer(onlinePlayer.getUniqueId());
             if (onp == null) continue;
-            if (onp.getPreferences().get("incognito").getValue() || onp.getPreferences().get("vanish").getValue()) {
+            if (onp.getPreferenceValue("incognito") || onp.getPreferenceValue("vanish")) {
                 if (player.getRank().ordinal() <= Rank.HELPER.ordinal()) {
                     onlinePlayers++;
                 }

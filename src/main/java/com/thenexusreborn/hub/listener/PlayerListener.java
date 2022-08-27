@@ -61,8 +61,8 @@ public class PlayerListener implements Listener {
         NexusPlayer nexusPlayer = e.getNexusPlayer();
         nexusPlayer.getScoreboard().setView(new HubScoreboard(e.getNexusPlayer().getScoreboard()));
     
-        Preference incognito = nexusPlayer.getPreferences().get("incognito");
-        Preference vanish = nexusPlayer.getPreferences().get("vanish");
+        boolean incognito = nexusPlayer.getPreferenceValue("incognito");
+        boolean vanish = nexusPlayer.getPreferenceValue("vanish");
     
         Player player = Bukkit.getPlayer(nexusPlayer.getUniqueId());
         for (Player other : Bukkit.getOnlinePlayers()) {
@@ -78,25 +78,25 @@ public class PlayerListener implements Listener {
                     if (np == null) {
                         return;
                     }
-                    if (incognito.getValue()) {
+                    if (incognito) {
                         if (np.getRank().ordinal() > Rank.HELPER.ordinal()) {
                             other.hidePlayer(player);
                         }
                     }
     
-                    if (np.getPreferences().get("incognito").getValue()) {
+                    if (np.getPreferenceValue("incognito")) {
                         if (nexusPlayer.getRank().ordinal() > Rank.HELPER.ordinal()) {
                             player.hidePlayer(other);
                         }
                     }
     
-                    if (vanish.getValue()) {
+                    if (vanish) {
                         if (np.getRank().ordinal() > Rank.HELPER.ordinal()) {
                             other.hidePlayer(player);
                         }
                     }
     
-                    if (np.getPreferences().get("vanish").getValue()) {
+                    if (np.getPreferenceValue("vanish")) {
                         if (nexusPlayer.getRank().ordinal() > Rank.HELPER.ordinal()) {
                             player.hidePlayer(other);
                         }
