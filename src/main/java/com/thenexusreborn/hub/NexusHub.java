@@ -71,7 +71,7 @@ public class NexusHub extends NexusSpigotPlugin {
                     serverInfo.setStatus("online");
                 }
                 serverInfo.setPlayers(Bukkit.getOnlinePlayers().size());
-                NexusAPI.getApi().getDataManager().pushServerInfo(serverInfo);
+                NexusAPI.getApi().getPrimaryDatabase().push(serverInfo);
             }
         }.runTaskTimerAsynchronously(this, 20L, 20L);
         
