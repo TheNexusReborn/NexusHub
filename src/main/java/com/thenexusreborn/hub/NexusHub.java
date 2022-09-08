@@ -65,6 +65,10 @@ public class NexusHub extends NexusSpigotPlugin {
             @Override
             public void run() {
                 ServerInfo serverInfo = NexusAPI.getApi().getServerManager().getCurrentServer();
+                if (serverInfo == null) {
+                    getLogger().severe("Current Server Info is null");
+                    return;
+                }
                 if (NexusAPI.getApi().getEnvironment() != Environment.DEVELOPMENT) {
                     serverInfo.setStatus(MulticraftAPI.getInstance().getServerStatus(serverInfo.getMulticraftId()).status);
                 } else {
