@@ -5,6 +5,7 @@ import com.thenexusreborn.hub.listener.PlayerListener;
 import com.thenexusreborn.hub.tasks.*;
 import com.thenexusreborn.nexuscore.NexusCore;
 import com.thenexusreborn.nexuscore.api.NexusSpigotPlugin;
+import com.thenexusreborn.nexuscore.task.TournamentMsgTask;
 import com.thenexusreborn.nexuscore.util.ServerProperties;
 import org.bukkit.*;
 
