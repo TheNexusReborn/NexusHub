@@ -1,6 +1,6 @@
 package com.thenexusreborn.hub;
 
-import com.thenexusreborn.hub.cmds.SetSpawnCmd;
+import com.thenexusreborn.hub.cmds.*;
 import com.thenexusreborn.hub.listener.PlayerListener;
 import com.thenexusreborn.hub.tasks.*;
 import com.thenexusreborn.nexuscore.NexusCore;
@@ -21,6 +21,7 @@ public class NexusHub extends NexusSpigotPlugin {
         this.nexusCore = ((NexusCore) Bukkit.getPluginManager().getPlugin("NexusCore"));
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         getCommand("setspawn").setExecutor(new SetSpawnCmd(this));
+        getCommand("spawn").setExecutor(new SpawnCmd(this));
         World world = Bukkit.getWorld(ServerProperties.getLevelName());
         if (this.getConfig().contains("spawn")) {
             String worldName = this.getConfig().getString("spawn.world");
