@@ -18,7 +18,7 @@ public class PlayerAndEntityTask extends BukkitRunnable {
         World world = Bukkit.getWorld(ServerProperties.getLevelName());
         Location spawn = plugin.getSpawn();
         for (Player player : Bukkit.getOnlinePlayers()) {
-            if (player.getLocation().getBlockY() < spawn.getBlockY() - 20) {
+            if (player.getLocation().getBlockY() < spawn.getBlockY() - 40) {
                 player.teleport(spawn);
             }
             player.setHealth(player.getMaxHealth());
