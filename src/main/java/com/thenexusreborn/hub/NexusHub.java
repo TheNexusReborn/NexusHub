@@ -39,6 +39,7 @@ public class NexusHub extends NexusSpigotPlugin {
         
         new PlayerAndEntityTask(this).start();
         new TournamentMsgTask(this).start();
+        new WorldTask(this).start();
     }
     
     @Override
