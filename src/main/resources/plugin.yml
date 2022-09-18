@@ -6,3 +6,4 @@ description: The Hub plugin for The Nexus Reborn
 author: Firestar311
 commands:
   setspawn:
+  spawn:

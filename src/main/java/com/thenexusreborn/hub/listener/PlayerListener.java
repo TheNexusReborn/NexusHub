@@ -6,7 +6,6 @@ import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.hub.menu.GameBrowserMenu;
 import com.thenexusreborn.hub.scoreboard.HubScoreboard;
 import com.thenexusreborn.nexuscore.api.events.*;
-import com.thenexusreborn.nexuscore.player.SpigotNexusPlayer;
 import com.thenexusreborn.nexuscore.util.MCUtils;
 import org.bukkit.*;
 import org.bukkit.entity.*;
@@ -22,7 +21,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 @SuppressWarnings("DuplicatedCode")
 public class PlayerListener implements Listener {
     
-    private NexusHub plugin;
+    private final NexusHub plugin;
     
     public PlayerListener(NexusHub plugin) {
         this.plugin = plugin;
@@ -59,46 +58,47 @@ public class PlayerListener implements Listener {
     
     @EventHandler
     public void onPlayerLoad(NexusPlayerLoadEvent e) {
-        SpigotNexusPlayer nexusPlayer = (SpigotNexusPlayer) e.getNexusPlayer();
+        NexusPlayer nexusPlayer = e.getNexusPlayer();
         nexusPlayer.getScoreboard().setView(new HubScoreboard(e.getNexusPlayer().getScoreboard()));
     
-        Preference incognito = nexusPlayer.getPreferences().get("incognito");
-        Preference vanish = nexusPlayer.getPreferences().get("vanish");
+        boolean incognito = nexusPlayer.getPreferenceValue("incognito");
+        boolean vanish = nexusPlayer.getPreferenceValue("vanish");
     
-        for (Player player : Bukkit.getOnlinePlayers()) {
+        Player player = Bukkit.getPlayer(nexusPlayer.getUniqueId());
+        for (Player other : Bukkit.getOnlinePlayers()) {
             BukkitRunnable runnable = new BukkitRunnable() {
                 @Override
                 public void run() {
-                    if (Bukkit.getPlayer(player.getUniqueId()) == null) {
+                    if (Bukkit.getPlayer(other.getUniqueId()) == null) {
                         cancel();
                         return;
                     }
                     
-                    NexusPlayer np = NexusAPI.getApi().getPlayerManager().getNexusPlayer(player.getUniqueId());
+                    NexusPlayer np = NexusAPI.getApi().getPlayerManager().getNexusPlayer(other.getUniqueId());
                     if (np == null) {
                         return;
                     }
-                    if (incognito.getValue()) {
+                    if (incognito) {
                         if (np.getRank().ordinal() > Rank.HELPER.ordinal()) {
-                            player.hidePlayer(nexusPlayer.getPlayer());
+                            other.hidePlayer(player);
                         }
                     }
     
-                    if (np.getPreferences().get("incognito").getValue()) {
+                    if (np.getPreferenceValue("incognito")) {
                         if (nexusPlayer.getRank().ordinal() > Rank.HELPER.ordinal()) {
-                            nexusPlayer.getPlayer().hidePlayer(player);
+                            player.hidePlayer(other);
                         }
                     }
     
-                    if (vanish.getValue()) {
+                    if (vanish) {
                         if (np.getRank().ordinal() > Rank.HELPER.ordinal()) {
-                            player.hidePlayer(nexusPlayer.getPlayer());
+                            other.hidePlayer(player);
                         }
                     }
     
-                    if (np.getPreferences().get("vanish").getValue()) {
+                    if (np.getPreferenceValue("vanish")) {
                         if (nexusPlayer.getRank().ordinal() > Rank.HELPER.ordinal()) {
-                            nexusPlayer.getPlayer().hidePlayer(player);
+                            player.hidePlayer(other);
                         }
                     }
                     
@@ -106,7 +106,7 @@ public class PlayerListener implements Listener {
                 }
             };
             
-            if (NexusAPI.getApi().getPlayerManager().getNexusPlayer(player.getUniqueId()) == null) {
+            if (NexusAPI.getApi().getPlayerManager().getNexusPlayer(other.getUniqueId()) == null) {
                 runnable.runTaskTimer(plugin, 1L, 10L);
             } else {
                 runnable.runTask(plugin);
@@ -120,7 +120,6 @@ public class PlayerListener implements Listener {
             nexusPlayer.sendMessage("&6&l>> &5Shop to support us: &ehttps://shop.thenexusreborn.com/");
             nexusPlayer.sendMessage("&6&l>> &5Please use the &aGame Selector &dto navigate.");
     
-            Player player = Bukkit.getPlayer(nexusPlayer.getUniqueId());
             ItemStack compass = new ItemStack(Material.COMPASS);
             ItemMeta meta = compass.getItemMeta();
             meta.setDisplayName(MCUtils.color("&e&lGAME SELECTOR &7&o(Right Click)"));
@@ -131,15 +130,15 @@ public class PlayerListener implements Listener {
     
     @EventHandler
     public void onIncognitoToggle(IncognitoToggleEvent e) {
-        SpigotNexusPlayer nexusPlayer = (SpigotNexusPlayer) e.getNexusPlayer();
-    
-        for (Player player : Bukkit.getOnlinePlayers()) {
+        NexusPlayer nexusPlayer = e.getNexusPlayer();
+        Player player = Bukkit.getPlayer(nexusPlayer.getUniqueId());
+        for (Player other : Bukkit.getOnlinePlayers()) {
             if (!e.getNewValue()) {
-                player.showPlayer(nexusPlayer.getPlayer());
+                other.showPlayer(player);
             } else {
-                NexusPlayer np = NexusAPI.getApi().getPlayerManager().getNexusPlayer(player.getUniqueId());
+                NexusPlayer np = NexusAPI.getApi().getPlayerManager().getNexusPlayer(other.getUniqueId());
                 if (np.getRank().ordinal() > Rank.HELPER.ordinal()) {
-                    player.hidePlayer(nexusPlayer.getPlayer());
+                    other.hidePlayer(player);
                 }
             }
         }
@@ -147,15 +146,16 @@ public class PlayerListener implements Listener {
     
     @EventHandler
     public void onVanishToggle(VanishToggleEvent e) {
-        SpigotNexusPlayer nexusPlayer = (SpigotNexusPlayer) e.getNexusPlayer();
+        NexusPlayer nexusPlayer = e.getNexusPlayer();
+        Player player = Bukkit.getPlayer(nexusPlayer.getUniqueId());
     
-        for (Player player : Bukkit.getOnlinePlayers()) {
+        for (Player other : Bukkit.getOnlinePlayers()) {
             if (!e.getNewValue()) {
-                player.showPlayer(nexusPlayer.getPlayer());
+                other.showPlayer(player);
             } else {
-                NexusPlayer np = NexusAPI.getApi().getPlayerManager().getNexusPlayer(player.getUniqueId());
+                NexusPlayer np = NexusAPI.getApi().getPlayerManager().getNexusPlayer(other.getUniqueId());
                 if (np.getRank().ordinal() > Rank.HELPER.ordinal()) {
-                    player.hidePlayer(nexusPlayer.getPlayer());
+                    other.hidePlayer(player);
                 }
             }
         }

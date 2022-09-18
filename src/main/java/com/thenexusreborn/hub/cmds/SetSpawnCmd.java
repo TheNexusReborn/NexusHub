@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 public class SetSpawnCmd implements CommandExecutor {
     
-    private NexusHub plugin;
+    private final NexusHub plugin;
     
     public SetSpawnCmd(NexusHub plugin) {
         this.plugin = plugin;
