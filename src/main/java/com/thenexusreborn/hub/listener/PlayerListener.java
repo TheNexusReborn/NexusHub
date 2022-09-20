@@ -64,6 +64,11 @@ public class PlayerListener implements Listener {
         boolean incognito = nexusPlayer.getPreferenceValue("incognito");
         boolean vanish = nexusPlayer.getPreferenceValue("vanish");
     
+        if (nexusPlayer.getRank().ordinal() <= Rank.DIAMOND.ordinal()) {
+            Player player = Bukkit.getPlayer(nexusPlayer.getUniqueId());
+            player.setAllowFlight(nexusPlayer.getPreferenceValue("fly"));
+        }
+    
         Player player = Bukkit.getPlayer(nexusPlayer.getUniqueId());
         for (Player other : Bukkit.getOnlinePlayers()) {
             BukkitRunnable runnable = new BukkitRunnable() {
