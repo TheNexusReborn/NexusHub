@@ -1,11 +1,14 @@
 package com.thenexusreborn.hub.listener;
 
 import com.thenexusreborn.api.NexusAPI;
-import com.thenexusreborn.api.player.*;
+import com.thenexusreborn.api.player.NexusPlayer;
+import com.thenexusreborn.api.player.Rank;
 import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.hub.menu.GameBrowserMenu;
 import com.thenexusreborn.hub.scoreboard.HubScoreboard;
-import com.thenexusreborn.nexuscore.api.events.*;
+import com.thenexusreborn.nexuscore.api.events.IncognitoToggleEvent;
+import com.thenexusreborn.nexuscore.api.events.NexusPlayerLoadEvent;
+import com.thenexusreborn.nexuscore.api.events.VanishToggleEvent;
 import com.thenexusreborn.nexuscore.util.MCUtils;
 import org.bukkit.*;
 import org.bukkit.entity.*;
@@ -59,8 +62,8 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onPlayerLoad(NexusPlayerLoadEvent e) {
         NexusPlayer nexusPlayer = e.getNexusPlayer();
-        nexusPlayer.getScoreboard().setView(new HubScoreboard(e.getNexusPlayer().getScoreboard()));
-    
+        e.setScoreboardView(new HubScoreboard(e.getNexusPlayer().getScoreboard()));
+
         boolean incognito = nexusPlayer.getPreferenceValue("incognito");
         boolean vanish = nexusPlayer.getPreferenceValue("vanish");
     
