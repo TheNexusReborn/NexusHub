@@ -73,7 +73,7 @@
         <dependency>
             <groupId>com.thenexusreborn</groupId>
             <artifactId>NexusCore</artifactId>
-            <version>1.5-ALPHA</version>
+            <version>1.6-ALPHA</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
