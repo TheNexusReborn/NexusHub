@@ -1,22 +1,33 @@
 package com.thenexusreborn.hub.listener;
 
 import com.thenexusreborn.api.NexusAPI;
+import com.thenexusreborn.api.helper.StringHelper;
 import com.thenexusreborn.api.player.NexusPlayer;
 import com.thenexusreborn.api.player.Rank;
+import com.thenexusreborn.api.server.Phase;
 import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.hub.menu.GameBrowserMenu;
 import com.thenexusreborn.hub.scoreboard.HubScoreboard;
+import com.thenexusreborn.nexuscore.NexusCore;
+import com.thenexusreborn.nexuscore.api.NexusSpigotPlugin;
 import com.thenexusreborn.nexuscore.api.events.IncognitoToggleEvent;
 import com.thenexusreborn.nexuscore.api.events.NexusPlayerLoadEvent;
 import com.thenexusreborn.nexuscore.api.events.VanishToggleEvent;
 import com.thenexusreborn.nexuscore.util.MCUtils;
-import org.bukkit.*;
-import org.bukkit.entity.*;
-import org.bukkit.event.*;
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.Material;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.*;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.*;
+import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -124,9 +135,25 @@ public class PlayerListener implements Listener {
         e.setJoinMessage(null);
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             nexusPlayer.sendMessage("&6&l>> &5Welcome to &d&lThe Nexus Reborn&5!");
-            nexusPlayer.sendMessage("&6&l>> &5We are currently in &aPrivate Alpha&d.");
             //nexusPlayer.sendMessage("&6&l>> &5Shop to support us: &ehttps://shop.thenexusreborn.com/");
             nexusPlayer.sendMessage("&6&l>> &5Please use the &aGame Selector &dto navigate.");
+
+            nexusPlayer.sendMessage("");
+            nexusPlayer.sendMessage("");
+
+            if (NexusAPI.PHASE != Phase.RELEASE) {
+                nexusPlayer.sendMessage("&6&l>> &eWelcome to the &b" + StringHelper.capitalizeEveryWord(NexusAPI.PHASE.name()) + " &ephase of &5The Nexus Reborn");
+                nexusPlayer.sendMessage("&6&l>> &eDue to the phase above, versions of plugins are below");
+                nexusPlayer.sendMessage("&6&l>> &ePlease use these versions in bug reports");
+                nexusPlayer.sendMessage("&6&l>> &eYou can access this list with &b/nexusversion");
+                nexusPlayer.sendMessage("&6&l>> &eThis message is only shown in the hub");
+                nexusPlayer.sendMessage("&6&l>> &eNexusAPI v" + NexusAPI.getApi().getVersion().toString());
+                NexusCore nexusCore = (NexusCore) Bukkit.getServer().getPluginManager().getPlugin("NexusCore");
+                nexusPlayer.sendMessage("&6&l>> &eNexusCore v" + nexusCore.getDescription().getVersion());
+                for (NexusSpigotPlugin nexusPlugin : nexusCore.getNexusPlugins()) {
+                    nexusPlayer.sendMessage("&6&l>> &e" + nexusPlugin.getName() + " v" + nexusPlugin.getDescription().getVersion());
+                }
+            }
     
             ItemStack compass = new ItemStack(Material.COMPASS);
             ItemMeta meta = compass.getItemMeta();
