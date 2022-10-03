@@ -124,7 +124,7 @@ public class PlayerListener implements Listener {
         e.setJoinMessage(null);
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             nexusPlayer.sendMessage("&6&l>> &5Welcome to &d&lThe Nexus Reborn&5!");
-            nexusPlayer.sendMessage("&6&l>> &5We are currently in &aAlpha&d.");
+            nexusPlayer.sendMessage("&6&l>> &5We are currently in &aPrivate Alpha&d.");
             //nexusPlayer.sendMessage("&6&l>> &5Shop to support us: &ehttps://shop.thenexusreborn.com/");
             nexusPlayer.sendMessage("&6&l>> &5Please use the &aGame Selector &dto navigate.");
     
@@ -179,5 +179,10 @@ public class PlayerListener implements Listener {
         if (e.getEntity() instanceof Player) {
             e.setCancelled(true);
         }
+    }
+
+    @EventHandler
+    public void onItemDrop(PlayerDropItemEvent e) {
+        e.setCancelled(true);
     }
 }
