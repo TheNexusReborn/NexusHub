@@ -5,7 +5,6 @@ import com.thenexusreborn.hub.listener.PlayerListener;
 import com.thenexusreborn.hub.tasks.*;
 import com.thenexusreborn.nexuscore.NexusCore;
 import com.thenexusreborn.nexuscore.api.NexusSpigotPlugin;
-import com.thenexusreborn.nexuscore.task.TournamentMsgTask;
 import com.thenexusreborn.nexuscore.util.ServerProperties;
 import org.bukkit.*;
 
@@ -38,7 +37,6 @@ public class NexusHub extends NexusSpigotPlugin {
         world.setDifficulty(Difficulty.PEACEFUL);
         
         new PlayerAndEntityTask(this).start();
-        new TournamentMsgTask(this).start();
         new WorldTask(this).start();
     }
     
