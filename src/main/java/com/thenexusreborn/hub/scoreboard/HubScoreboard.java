@@ -41,13 +41,13 @@ public class HubScoreboard extends SpigotScoreboardView {
         
         ITeam creditsValue = scoreboard.registerNewTeam(creditsValueName);
         creditsValue.setPrefix(MCUtils.color("&fCredits: "));
-        double credits = (double) player.getStatValue("credits");
+        double credits = (double) player.getStats().getValue("credits");
         creditsValue.setSuffix(MCUtils.color("&3" + formatBalance(credits)));
         addEntry(objective, creditsValue, ChatColor.DARK_RED.toString(), 11);
         
         ITeam nexitesValue = scoreboard.registerNewTeam(nexitesValueName);
         nexitesValue.setPrefix(MCUtils.color("&fNexites: "));
-        nexitesValue.setSuffix(MCUtils.color("&9" + formatBalance((double) player.getStatValue("nexites"))));
+        nexitesValue.setSuffix(MCUtils.color("&9" + formatBalance((double) player.getStats().getValue("nexites"))));
         addEntry(objective, nexitesValue, ChatColor.AQUA.toString(), 10);
     
         ITeam blank2 = scoreboard.registerNewTeam(blank2Name);
@@ -88,8 +88,8 @@ public class HubScoreboard extends SpigotScoreboardView {
             rankName = player.getRank().name();
         }
         scoreboard.getTeam(this.rankValueName).setPrefix(MCUtils.color(player.getRank().getColor() + rankName));
-        scoreboard.getTeam(this.creditsValueName).setSuffix(MCUtils.color("&3" + formatBalance((double) player.getStatValue("credits"))));
-        scoreboard.getTeam(this.nexitesValueName).setSuffix(MCUtils.color("&9" + formatBalance((double) player.getStatValue("nexites"))));
+        scoreboard.getTeam(this.creditsValueName).setSuffix(MCUtils.color("&3" + formatBalance((double) player.getStats().getValue("credits"))));
+        scoreboard.getTeam(this.nexitesValueName).setSuffix(MCUtils.color("&9" + formatBalance((double) player.getStats().getValue("nexites"))));
         int onlinePlayers = 0;
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             NexusPlayer onp = NexusAPI.getApi().getPlayerManager().getNexusPlayer(onlinePlayer.getUniqueId());
