@@ -75,12 +75,12 @@ public class PlayerListener implements Listener {
         NexusPlayer nexusPlayer = e.getNexusPlayer();
         e.setScoreboardView(new HubScoreboard(e.getNexusPlayer().getScoreboard()));
 
-        boolean incognito = nexusPlayer.getPreferenceValue("incognito");
-        boolean vanish = nexusPlayer.getPreferenceValue("vanish");
+        boolean incognito = nexusPlayer.getToggles().getValue("incognito");
+        boolean vanish = nexusPlayer.getToggles().getValue("vanish");
     
-        if (nexusPlayer.getRank().ordinal() <= Rank.DIAMOND.ordinal()) {
+        if (nexusPlayer.getRanks().get().ordinal() <= Rank.DIAMOND.ordinal()) {
             Player player = Bukkit.getPlayer(nexusPlayer.getUniqueId());
-            player.setAllowFlight(nexusPlayer.getPreferenceValue("fly"));
+            player.setAllowFlight(nexusPlayer.getToggles().getValue("fly"));
         }
     
         Player player = Bukkit.getPlayer(nexusPlayer.getUniqueId());
@@ -98,25 +98,25 @@ public class PlayerListener implements Listener {
                         return;
                     }
                     if (incognito) {
-                        if (np.getRank().ordinal() > Rank.HELPER.ordinal()) {
+                        if (np.getRanks().get().ordinal() > Rank.HELPER.ordinal()) {
                             other.hidePlayer(player);
                         }
                     }
     
-                    if (np.getPreferenceValue("incognito")) {
-                        if (nexusPlayer.getRank().ordinal() > Rank.HELPER.ordinal()) {
+                    if (np.getToggles().getValue("incognito")) {
+                        if (nexusPlayer.getRanks().get().ordinal() > Rank.HELPER.ordinal()) {
                             player.hidePlayer(other);
                         }
                     }
     
                     if (vanish) {
-                        if (np.getRank().ordinal() > Rank.HELPER.ordinal()) {
+                        if (np.getRanks().get().ordinal() > Rank.HELPER.ordinal()) {
                             other.hidePlayer(player);
                         }
                     }
     
-                    if (np.getPreferenceValue("vanish")) {
-                        if (nexusPlayer.getRank().ordinal() > Rank.HELPER.ordinal()) {
+                    if (np.getToggles().getValue("vanish")) {
+                        if (nexusPlayer.getRanks().get().ordinal() > Rank.HELPER.ordinal()) {
                             player.hidePlayer(other);
                         }
                     }
@@ -172,7 +172,7 @@ public class PlayerListener implements Listener {
                 other.showPlayer(player);
             } else {
                 NexusPlayer np = NexusAPI.getApi().getPlayerManager().getNexusPlayer(other.getUniqueId());
-                if (np.getRank().ordinal() > Rank.HELPER.ordinal()) {
+                if (np.getRanks().get().ordinal() > Rank.HELPER.ordinal()) {
                     other.hidePlayer(player);
                 }
             }
@@ -189,7 +189,7 @@ public class PlayerListener implements Listener {
                 other.showPlayer(player);
             } else {
                 NexusPlayer np = NexusAPI.getApi().getPlayerManager().getNexusPlayer(other.getUniqueId());
-                if (np.getRank().ordinal() > Rank.HELPER.ordinal()) {
+                if (np.getRanks().get().ordinal() > Rank.HELPER.ordinal()) {
                     other.hidePlayer(player);
                 }
             }

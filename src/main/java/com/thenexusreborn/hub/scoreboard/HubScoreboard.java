@@ -30,7 +30,7 @@ public class HubScoreboard extends SpigotScoreboardView {
         addEntry(objective, rankLabel, MCUtils.color("&6&lRANK:"), 15);
         
         ITeam rankValue = scoreboard.registerNewTeam(rankValueName);
-        rankValue.setPrefix(MCUtils.color(player.getRank().getColor() + StringHelper.capitalizeEveryWord(player.getRank().name())));
+        rankValue.setPrefix(MCUtils.color(player.getRanks().get().getColor() + StringHelper.capitalizeEveryWord(player.getRanks().get().name())));
         addEntry(objective, rankValue, ChatColor.GREEN.toString(), 14);
         
         ITeam blank1 = scoreboard.registerNewTeam(blank1Name);
@@ -82,20 +82,20 @@ public class HubScoreboard extends SpigotScoreboardView {
         NexusPlayer player = this.scoreboard.getPlayer();
         IScoreboard scoreboard = this.scoreboard.getScoreboard();
         String rankName;
-        if (player.getRank() == Rank.MEMBER) {
+        if (player.getRanks().get() == Rank.MEMBER) {
             rankName = "Member";
         } else {
-            rankName = player.getRank().name();
+            rankName = player.getRanks().get().name();
         }
-        scoreboard.getTeam(this.rankValueName).setPrefix(MCUtils.color(player.getRank().getColor() + rankName));
+        scoreboard.getTeam(this.rankValueName).setPrefix(MCUtils.color(player.getRanks().get().getColor() + rankName));
         scoreboard.getTeam(this.creditsValueName).setSuffix(MCUtils.color("&3" + formatBalance((double) player.getStats().getValue("credits"))));
         scoreboard.getTeam(this.nexitesValueName).setSuffix(MCUtils.color("&9" + formatBalance((double) player.getStats().getValue("nexites"))));
         int onlinePlayers = 0;
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             NexusPlayer onp = NexusAPI.getApi().getPlayerManager().getNexusPlayer(onlinePlayer.getUniqueId());
             if (onp == null) continue;
-            if (onp.getPreferenceValue("incognito") || onp.getPreferenceValue("vanish")) {
-                if (player.getRank().ordinal() <= Rank.HELPER.ordinal()) {
+            if (onp.getToggles().getValue("incognito") || onp.getToggles().getValue("vanish")) {
+                if (player.getRanks().get().ordinal() <= Rank.HELPER.ordinal()) {
                     onlinePlayers++;
                 }
             } else {
