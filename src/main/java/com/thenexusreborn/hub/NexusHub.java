@@ -18,6 +18,7 @@ public class NexusHub extends NexusSpigotPlugin {
     public void onEnable() {
         this.saveDefaultConfig();
         this.nexusCore = ((NexusCore) Bukkit.getPluginManager().getPlugin("NexusCore"));
+        this.nexusCore.addNexusPlugin(this);
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         getCommand("setspawn").setExecutor(new SetSpawnCmd(this));
         getCommand("spawn").setExecutor(new SpawnCmd(this));
