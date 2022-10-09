@@ -97,28 +97,39 @@ public class PlayerListener implements Listener {
                     if (np == null) {
                         return;
                     }
+                    
+                    boolean keepJoiningHidden = false, keepOtherHidden = false;
+                    
                     if (incognito) {
                         if (np.getRanks().get().ordinal() > Rank.HELPER.ordinal()) {
-                            other.hidePlayer(player);
+                            keepJoiningHidden = true;
                         }
                     }
     
                     if (np.getToggles().getValue("incognito")) {
                         if (nexusPlayer.getRanks().get().ordinal() > Rank.HELPER.ordinal()) {
-                            player.hidePlayer(other);
+                            keepOtherHidden = true;
                         }
                     }
     
                     if (vanish) {
                         if (np.getRanks().get().ordinal() > Rank.HELPER.ordinal()) {
-                            other.hidePlayer(player);
+                            keepJoiningHidden = true;
                         }
                     }
     
                     if (np.getToggles().getValue("vanish")) {
                         if (nexusPlayer.getRanks().get().ordinal() > Rank.HELPER.ordinal()) {
-                            player.hidePlayer(other);
+                            keepOtherHidden = true;
                         }
+                    }
+                    
+                    if (!keepJoiningHidden) {
+                        other.showPlayer(player);
+                    }
+                    
+                    if (!keepOtherHidden) {
+                        player.showPlayer(other);
                     }
                     
                     cancel();

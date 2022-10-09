@@ -18,6 +18,11 @@ public class NexusHub extends NexusSpigotPlugin {
     public void onEnable() {
         this.saveDefaultConfig();
         this.nexusCore = ((NexusCore) Bukkit.getPluginManager().getPlugin("NexusCore"));
+        if (nexusCore == null) {
+            getLogger().severe("Could not find NexusCore, disabling plugin");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
         this.nexusCore.addNexusPlugin(this);
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         getCommand("setspawn").setExecutor(new SetSpawnCmd(this));
@@ -43,6 +48,9 @@ public class NexusHub extends NexusSpigotPlugin {
     
     @Override
     public void onDisable() {
+        if (nexusCore == null) {
+            return;
+        }
         getConfig().set("spawn.world", spawn.getWorld().getName());
         getConfig().set("spawn.x", spawn.getBlockX() + "");
         getConfig().set("spawn.y", spawn.getBlockY() + "");
