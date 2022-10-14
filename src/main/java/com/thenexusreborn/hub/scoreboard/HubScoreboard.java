@@ -41,13 +41,13 @@ public class HubScoreboard extends SpigotScoreboardView {
         
         ITeam creditsValue = scoreboard.registerNewTeam(creditsValueName);
         creditsValue.setPrefix(MCUtils.color("&fCredits: "));
-        double credits = (double) player.getStats().getValue("credits");
+        double credits = player.getStats().getValue("credits").getAsDouble();
         creditsValue.setSuffix(MCUtils.color("&3" + formatBalance(credits)));
         addEntry(objective, creditsValue, ChatColor.DARK_RED.toString(), 11);
         
         ITeam nexitesValue = scoreboard.registerNewTeam(nexitesValueName);
         nexitesValue.setPrefix(MCUtils.color("&fNexites: "));
-        nexitesValue.setSuffix(MCUtils.color("&9" + formatBalance((double) player.getStats().getValue("nexites"))));
+        nexitesValue.setSuffix(MCUtils.color("&9" + formatBalance(player.getStats().getValue("nexites").getAsDouble())));
         addEntry(objective, nexitesValue, ChatColor.AQUA.toString(), 10);
     
         ITeam blank2 = scoreboard.registerNewTeam(blank2Name);
@@ -88,8 +88,8 @@ public class HubScoreboard extends SpigotScoreboardView {
             rankName = player.getRanks().get().name();
         }
         scoreboard.getTeam(this.rankValueName).setPrefix(MCUtils.color(player.getRanks().get().getColor() + rankName));
-        scoreboard.getTeam(this.creditsValueName).setSuffix(MCUtils.color("&3" + formatBalance((double) player.getStats().getValue("credits"))));
-        scoreboard.getTeam(this.nexitesValueName).setSuffix(MCUtils.color("&9" + formatBalance((double) player.getStats().getValue("nexites"))));
+        scoreboard.getTeam(this.creditsValueName).setSuffix(MCUtils.color("&3" + formatBalance(player.getStats().getValue("credits").getAsDouble())));
+        scoreboard.getTeam(this.nexitesValueName).setSuffix(MCUtils.color("&9" + formatBalance(player.getStats().getValue("nexites").getAsDouble())));
         int onlinePlayers = 0;
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             NexusPlayer onp = NexusAPI.getApi().getPlayerManager().getNexusPlayer(onlinePlayer.getUniqueId());
