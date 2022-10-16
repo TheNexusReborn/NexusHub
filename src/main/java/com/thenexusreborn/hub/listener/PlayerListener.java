@@ -2,17 +2,14 @@ package com.thenexusreborn.hub.listener;
 
 import com.thenexusreborn.api.NexusAPI;
 import com.thenexusreborn.api.helper.StringHelper;
-import com.thenexusreborn.api.player.NexusPlayer;
-import com.thenexusreborn.api.player.Rank;
+import com.thenexusreborn.api.player.*;
 import com.thenexusreborn.api.server.Phase;
 import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.hub.menu.GameBrowserMenu;
 import com.thenexusreborn.hub.scoreboard.HubScoreboard;
 import com.thenexusreborn.nexuscore.NexusCore;
 import com.thenexusreborn.nexuscore.api.NexusSpigotPlugin;
-import com.thenexusreborn.nexuscore.api.events.IncognitoToggleEvent;
-import com.thenexusreborn.nexuscore.api.events.NexusPlayerLoadEvent;
-import com.thenexusreborn.nexuscore.api.events.VanishToggleEvent;
+import com.thenexusreborn.nexuscore.api.events.*;
 import com.thenexusreborn.nexuscore.util.MCUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -175,35 +172,25 @@ public class PlayerListener implements Listener {
     }
     
     @EventHandler
-    public void onIncognitoToggle(IncognitoToggleEvent e) {
+    public void onToggleChange(ToggleChangeEvent e) {
         NexusPlayer nexusPlayer = e.getNexusPlayer();
+        Toggle toggle = e.getToggle();
         Player player = Bukkit.getPlayer(nexusPlayer.getUniqueId());
-        for (Player other : Bukkit.getOnlinePlayers()) {
-            if (!e.getNewValue()) {
-                other.showPlayer(player);
-            } else {
-                NexusPlayer np = NexusAPI.getApi().getPlayerManager().getNexusPlayer(other.getUniqueId());
-                if (np.getRanks().get().ordinal() > Rank.HELPER.ordinal()) {
-                    other.hidePlayer(player);
+        if (player == null) return;
+        
+        if (toggle.getInfo().getName().equalsIgnoreCase("vanish") || toggle.getInfo().getName().equalsIgnoreCase("incognito")) {
+            for (Player other : Bukkit.getOnlinePlayers()) {
+                if (!e.newValue()) {
+                    other.showPlayer(player);
+                } else {
+                    NexusPlayer np = NexusAPI.getApi().getPlayerManager().getNexusPlayer(other.getUniqueId());
+                    if (np.getRanks().get().ordinal() > Rank.HELPER.ordinal()) {
+                        other.hidePlayer(player);
+                    }
                 }
             }
-        }
-    }
-    
-    @EventHandler
-    public void onVanishToggle(VanishToggleEvent e) {
-        NexusPlayer nexusPlayer = e.getNexusPlayer();
-        Player player = Bukkit.getPlayer(nexusPlayer.getUniqueId());
-    
-        for (Player other : Bukkit.getOnlinePlayers()) {
-            if (!e.getNewValue()) {
-                other.showPlayer(player);
-            } else {
-                NexusPlayer np = NexusAPI.getApi().getPlayerManager().getNexusPlayer(other.getUniqueId());
-                if (np.getRanks().get().ordinal() > Rank.HELPER.ordinal()) {
-                    other.hidePlayer(player);
-                }
-            }
+        } else if (toggle.getInfo().getName().equalsIgnoreCase("fly")) {
+            player.setAllowFlight(e.newValue());
         }
     }
     
