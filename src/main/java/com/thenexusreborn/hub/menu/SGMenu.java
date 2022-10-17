@@ -4,7 +4,6 @@ import com.google.common.io.*;
 import com.thenexusreborn.api.NexusAPI;
 import com.thenexusreborn.api.helper.StringHelper;
 import com.thenexusreborn.api.server.ServerInfo;
-import com.thenexusreborn.api.tournament.Tournament;
 import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.nexuscore.NexusCore;
 import com.thenexusreborn.nexuscore.menu.element.button.Button;
@@ -45,16 +44,6 @@ public class SGMenu extends Menu {
                     List<String> lore = new LinkedList<>();
                     lore.add("&a" + StringHelper.capitalizeEveryWord(stage) + " &7- &e" + state);
                     lore.add("&d" + server.getPlayers() + "&5/24");
-                    Tournament tournament = NexusAPI.getApi().getTournament();
-                    if (tournament != null && tournament.isActive()) {
-                        for (String tournamentServer : tournament.getServers()) {
-                            if (tournamentServer.equalsIgnoreCase("all") || tournamentServer.equalsIgnoreCase("network") || tournamentServer.equalsIgnoreCase(NexusAPI.getApi().getServerManager().getCurrentServer().getName())) {
-                                lore.add("");
-                                lore.add("&a&lTOURNAMENT");
-                                break;
-                            }
-                        }
-                    }
                     itemBuilder.lore(lore);
                 } catch (Exception e) {
                     itemBuilder.lore("&cError");

@@ -27,7 +27,7 @@ public class PlayerAndEntityTask extends BukkitRunnable {
         }
     
         for (Entity entity : world.getEntities()) {
-            if (!(entity instanceof Player)) {
+            if (!(entity instanceof Player) && !(entity instanceof ItemFrame)) {
                 entity.remove();
             }
         }

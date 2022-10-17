@@ -5,7 +5,6 @@ import com.thenexusreborn.hub.listener.PlayerListener;
 import com.thenexusreborn.hub.tasks.*;
 import com.thenexusreborn.nexuscore.NexusCore;
 import com.thenexusreborn.nexuscore.api.NexusSpigotPlugin;
-import com.thenexusreborn.nexuscore.task.TournamentMsgTask;
 import com.thenexusreborn.nexuscore.util.ServerProperties;
 import org.bukkit.*;
 
@@ -19,6 +18,12 @@ public class NexusHub extends NexusSpigotPlugin {
     public void onEnable() {
         this.saveDefaultConfig();
         this.nexusCore = ((NexusCore) Bukkit.getPluginManager().getPlugin("NexusCore"));
+        if (nexusCore == null) {
+            getLogger().severe("Could not find NexusCore, disabling plugin");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+        this.nexusCore.addNexusPlugin(this);
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         getCommand("setspawn").setExecutor(new SetSpawnCmd(this));
         getCommand("spawn").setExecutor(new SpawnCmd(this));
@@ -38,12 +43,14 @@ public class NexusHub extends NexusSpigotPlugin {
         world.setDifficulty(Difficulty.PEACEFUL);
         
         new PlayerAndEntityTask(this).start();
-        new TournamentMsgTask(this).start();
         new WorldTask(this).start();
     }
     
     @Override
     public void onDisable() {
+        if (nexusCore == null) {
+            return;
+        }
         getConfig().set("spawn.world", spawn.getWorld().getName());
         getConfig().set("spawn.x", spawn.getBlockX() + "");
         getConfig().set("spawn.y", spawn.getBlockY() + "");
