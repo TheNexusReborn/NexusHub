@@ -29,7 +29,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
-@SuppressWarnings("DuplicatedCode")
 public class PlayerListener implements Listener {
     
     private final NexusHub plugin;
