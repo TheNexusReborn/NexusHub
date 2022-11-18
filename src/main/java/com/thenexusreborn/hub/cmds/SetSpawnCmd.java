@@ -22,12 +22,11 @@ public class SetSpawnCmd implements CommandExecutor {
             return true;
         }
         
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof Player player)) {
             sender.sendMessage(MCUtils.color("&cOnly players can use that command."));
             return true;
         }
-        
-        Player player = (Player) sender;
+    
         plugin.setSpawn(player.getLocation());
         player.sendMessage(MCUtils.color("&eYou set the spawn to your current location."));
         return true;

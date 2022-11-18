@@ -13,12 +13,11 @@ public class SpawnCmd implements CommandExecutor {
     }
     
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof Player player)) {
             sender.sendMessage(MCUtils.color("&cOnly players can use that command."));
             return true;
         }
-        
-        Player player = (Player) sender;
+    
         player.teleport(plugin.getSpawn());
         player.sendMessage(MCUtils.color(MsgType.INFO + "Teleported to the spawn."));
         return true;
