@@ -1,20 +1,22 @@
 package com.thenexusreborn.hub.tasks;
 
 import com.thenexusreborn.hub.NexusHub;
+import com.thenexusreborn.nexuscore.api.NexusTask;
 import com.thenexusreborn.nexuscore.util.ServerProperties;
-import org.bukkit.*;
-import org.bukkit.entity.*;
-import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.ItemFrame;
+import org.bukkit.entity.Player;
 
-public class PlayerAndEntityTask extends BukkitRunnable {
-    
-    private NexusHub plugin;
+public class PlayerAndEntityTask extends NexusTask<NexusHub> {
     
     public PlayerAndEntityTask(NexusHub plugin) {
-        this.plugin = plugin;
+        super(plugin, 1L, 1L, false);
     }
     
-    public void run() {
+    public void onRun() {
         World world = Bukkit.getWorld(ServerProperties.getLevelName());
         Location spawn = plugin.getSpawn();
         for (Player player : Bukkit.getOnlinePlayers()) {
@@ -31,9 +33,5 @@ public class PlayerAndEntityTask extends BukkitRunnable {
                 entity.remove();
             }
         }
-    }
-    
-    public void start() {
-        runTaskTimer(plugin, 1L, 1L);
     }
 }
