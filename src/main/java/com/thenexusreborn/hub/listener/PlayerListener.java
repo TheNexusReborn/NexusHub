@@ -71,12 +71,12 @@ public class PlayerListener implements Listener {
         NexusPlayer nexusPlayer = e.getNexusPlayer();
         e.setScoreboardView(new HubScoreboard(e.getNexusPlayer().getScoreboard()));
 
-        boolean incognito = nexusPlayer.getToggles().getValue("incognito");
-        boolean vanish = nexusPlayer.getToggles().getValue("vanish");
+        boolean incognito = nexusPlayer.getToggleValue("incognito");
+        boolean vanish = nexusPlayer.getToggleValue("vanish");
     
-        if (nexusPlayer.getRanks().get().ordinal() <= Rank.DIAMOND.ordinal()) {
+        if (nexusPlayer.getRank().ordinal() <= Rank.DIAMOND.ordinal()) {
             Player player = Bukkit.getPlayer(nexusPlayer.getUniqueId());
-            player.setAllowFlight(nexusPlayer.getToggles().getValue("fly"));
+            player.setAllowFlight(nexusPlayer.getToggleValue("fly"));
         }
     
         Player player = Bukkit.getPlayer(nexusPlayer.getUniqueId());
@@ -97,25 +97,25 @@ public class PlayerListener implements Listener {
                     boolean keepJoiningHidden = false, keepOtherHidden = false;
                     
                     if (incognito) {
-                        if (np.getRanks().get().ordinal() > Rank.HELPER.ordinal()) {
+                        if (np.getRank().ordinal() > Rank.HELPER.ordinal()) {
                             keepJoiningHidden = true;
                         }
                     }
     
-                    if (np.getToggles().getValue("incognito")) {
-                        if (nexusPlayer.getRanks().get().ordinal() > Rank.HELPER.ordinal()) {
+                    if (np.getToggleValue("incognito")) {
+                        if (nexusPlayer.getRank().ordinal() > Rank.HELPER.ordinal()) {
                             keepOtherHidden = true;
                         }
                     }
     
                     if (vanish) {
-                        if (np.getRanks().get().ordinal() > Rank.HELPER.ordinal()) {
+                        if (np.getRank().ordinal() > Rank.HELPER.ordinal()) {
                             keepJoiningHidden = true;
                         }
                     }
     
-                    if (np.getToggles().getValue("vanish")) {
-                        if (nexusPlayer.getRanks().get().ordinal() > Rank.HELPER.ordinal()) {
+                    if (np.getToggleValue("vanish")) {
+                        if (nexusPlayer.getRank().ordinal() > Rank.HELPER.ordinal()) {
                             keepOtherHidden = true;
                         }
                     }
@@ -183,7 +183,7 @@ public class PlayerListener implements Listener {
                     other.showPlayer(player);
                 } else {
                     NexusPlayer np = NexusAPI.getApi().getPlayerManager().getNexusPlayer(other.getUniqueId());
-                    if (np.getRanks().get().ordinal() > Rank.HELPER.ordinal()) {
+                    if (np.getRank().ordinal() > Rank.HELPER.ordinal()) {
                         other.hidePlayer(player);
                     }
                 }

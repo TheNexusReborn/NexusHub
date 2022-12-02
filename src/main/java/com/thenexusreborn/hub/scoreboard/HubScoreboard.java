@@ -18,13 +18,13 @@ public class HubScoreboard extends SpigotScoreboardView {
     public void registerTeams() {
         createTeam(new TeamBuilder("rankLabel").entry("&6&lRANK:").score(15));
         createTeam(new TeamBuilder("rankValue").entry(ChatColor.GREEN.toString()).score(14).valueUpdater((player, team) -> {
-            Rank rank = player.getRanks().get();
+            Rank rank = player.getRank();
             team.setPrefix(rank.getColor() + rank.name());
         }));
         createTeam(new TeamBuilder("blank1").entry(ChatColor.GOLD.toString()).score(13));
         createTeam(new TeamBuilder("balanceLabel").entry("&6&lBALANCE:").score(12));
-        createTeam(new TeamBuilder("creditsValue").entry("&fCredits: &3").score(11).valueUpdater((player, team) -> team.setSuffix(formatBalance(player.getStats().getValue("credits").getAsDouble()))));
-        createTeam(new TeamBuilder("nexites").entry("&fNexites: &9").score(10).valueUpdater((player, team) -> team.setSuffix(formatBalance(player.getStats().getValue("nexites").getAsDouble()))));
+        createTeam(new TeamBuilder("creditsValue").entry("&fCredits: &3").score(11).valueUpdater((player, team) -> team.setSuffix(formatBalance(player.getStatValue("credits").getAsDouble()))));
+        createTeam(new TeamBuilder("nexites").entry("&fNexites: &9").score(10).valueUpdater((player, team) -> team.setSuffix(formatBalance(player.getStatValue("nexites").getAsDouble()))));
         createTeam(new TeamBuilder("blank2").entry(ChatColor.BLACK.toString()).score(9));
         createTeam(new TeamBuilder("playersLabel").entry("&6&lPLAYERS").score(8));
         createTeam(new TeamBuilder("playersValue").entry(ChatColor.YELLOW.toString()).score(7).valueUpdater((player, team) -> {
@@ -32,8 +32,8 @@ public class HubScoreboard extends SpigotScoreboardView {
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                 NexusPlayer onp = NexusAPI.getApi().getPlayerManager().getNexusPlayer(onlinePlayer.getUniqueId());
                 if (onp == null) continue;
-                if (onp.getToggles().getValue("incognito") || onp.getToggles().getValue("vanish")) {
-                    if (player.getRanks().get().ordinal() <= Rank.HELPER.ordinal()) {
+                if (onp.getToggleValue("incognito") || onp.getToggleValue("vanish")) {
+                    if (player.getRank().ordinal() <= Rank.HELPER.ordinal()) {
                         onlinePlayers++;
                     }
                 } else {
