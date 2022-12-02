@@ -1,7 +1,7 @@
 package com.thenexusreborn.hub.tasks;
 
 import com.thenexusreborn.hub.NexusHub;
-import com.thenexusreborn.nexuscore.api.NexusTask;
+import com.thenexusreborn.nexuscore.api.NexusThread;
 import com.thenexusreborn.nexuscore.util.ServerProperties;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -10,7 +10,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
 
-public class PlayerAndEntityTask extends NexusTask<NexusHub> {
+public class PlayerAndEntityTask extends NexusThread<NexusHub> {
     
     public PlayerAndEntityTask(NexusHub plugin) {
         super(plugin, 1L, 1L, false);
