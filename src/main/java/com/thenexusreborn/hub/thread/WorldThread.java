@@ -1,4 +1,4 @@
-package com.thenexusreborn.hub.tasks;
+package com.thenexusreborn.hub.thread;
 
 import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.nexuscore.api.NexusThread;
@@ -6,9 +6,9 @@ import com.thenexusreborn.nexuscore.util.ServerProperties;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 
-public class WorldTask extends NexusThread<NexusHub> {
+public class WorldThread extends NexusThread<NexusHub> {
     
-    public WorldTask(NexusHub plugin) {
+    public WorldThread(NexusHub plugin) {
         super(plugin, 20L, 0L, false);
     }
     

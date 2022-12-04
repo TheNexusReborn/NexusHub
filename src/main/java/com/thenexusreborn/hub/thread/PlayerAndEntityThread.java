@@ -1,4 +1,4 @@
-package com.thenexusreborn.hub.tasks;
+package com.thenexusreborn.hub.thread;
 
 import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.nexuscore.api.NexusThread;
@@ -10,9 +10,9 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
 
-public class PlayerAndEntityTask extends NexusThread<NexusHub> {
+public class PlayerAndEntityThread extends NexusThread<NexusHub> {
     
-    public PlayerAndEntityTask(NexusHub plugin) {
+    public PlayerAndEntityThread(NexusHub plugin) {
         super(plugin, 1L, 1L, false);
     }
     

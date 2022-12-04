@@ -2,7 +2,7 @@ package com.thenexusreborn.hub;
 
 import com.thenexusreborn.hub.cmds.*;
 import com.thenexusreborn.hub.listener.PlayerListener;
-import com.thenexusreborn.hub.tasks.*;
+import com.thenexusreborn.hub.thread.*;
 import com.thenexusreborn.nexuscore.NexusCore;
 import com.thenexusreborn.nexuscore.api.NexusSpigotPlugin;
 import com.thenexusreborn.nexuscore.util.ServerProperties;
@@ -42,8 +42,8 @@ public class NexusHub extends NexusSpigotPlugin {
         }
         world.setDifficulty(Difficulty.PEACEFUL);
         
-        new PlayerAndEntityTask(this).start();
-        new WorldTask(this).start();
+        new PlayerAndEntityThread(this).start();
+        new WorldThread(this).start();
     }
     
     @Override
