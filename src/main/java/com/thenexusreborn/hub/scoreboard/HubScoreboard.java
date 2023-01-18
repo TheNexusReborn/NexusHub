@@ -48,7 +48,7 @@ public class HubScoreboard extends SpigotScoreboardView {
     }
     
     private String formatBalance(double balance) {
-        if (balance < 100) {
+        if (balance < 1000) {
             return MCUtils.formatNumber(balance);
         }
         return MCUtils.formatNumber(balance / 1000) + "k";
