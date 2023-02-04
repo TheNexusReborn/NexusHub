@@ -17,7 +17,7 @@ public class NexusHub extends NexusSpigotPlugin {
     @Override
     public void onEnable() {
         this.saveDefaultConfig();
-        this.nexusCore = ((NexusCore) Bukkit.getPluginManager().getPlugin("NexusCore"));
+        this.nexusCore = (NexusCore) Bukkit.getPluginManager().getPlugin("NexusCore");
         if (nexusCore == null) {
             getLogger().severe("Could not find NexusCore, disabling plugin");
             getServer().getPluginManager().disablePlugin(this);
