@@ -1,23 +1,24 @@
 package com.thenexusreborn.hub.menu;
 
 import com.google.common.io.*;
+import com.starmediadev.starui.element.button.Button;
+import com.starmediadev.starui.gui.InventoryGUI;
 import com.thenexusreborn.api.NexusAPI;
 import com.thenexusreborn.api.helper.StringHelper;
 import com.thenexusreborn.api.server.ServerInfo;
 import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.nexuscore.NexusCore;
-import com.thenexusreborn.nexuscore.menu.element.button.Button;
-import com.thenexusreborn.nexuscore.menu.gui.Menu;
 import com.thenexusreborn.nexuscore.util.builder.ItemBuilder;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 
-public class SGMenu extends Menu {
+public class SGMenu extends InventoryGUI {
     public SGMenu(NexusHub plugin) {
-        super(plugin, "sg", "&6&lSurvival Games", 1);
-    
+        super(1, "&6&lSurvival Games");
+
         for (ServerInfo server : new ArrayList<>(NexusAPI.getApi().getServerManager().getServers())) {
             Material material;
             if (server.getType().equalsIgnoreCase("sg")) {
@@ -33,9 +34,9 @@ public class SGMenu extends Menu {
             } else {
                 continue;
             }
-    
+
             ItemBuilder itemBuilder = ItemBuilder.start(material).displayName("&6" + server.getName());
-            
+
             if (material != Material.BEDROCK) {
                 try {
                     String[] stateSplit = server.getState().split(":");
@@ -51,15 +52,16 @@ public class SGMenu extends Menu {
             } else {
                 itemBuilder.lore("&cOffline");
             }
-    
+
             ItemStack itemStack = itemBuilder.build();
-            Button button = new Button(itemStack);
-            button.setLeftClickAction((player, menu, clickType) -> {
-                ByteArrayDataOutput out = ByteStreams.newDataOutput();
-                out.writeUTF("Connect");
-                out.writeUTF(server.getName());
-                player.sendPluginMessage(NexusCore.getPlugin(NexusCore.class), "BungeeCord", out.toByteArray());
-            });
+            Button button = new Button()
+                    .creator(player -> itemStack)
+                    .consumer(e -> {
+                        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+                        out.writeUTF("Connect");
+                        out.writeUTF(server.getName());
+                        ((Player) e.getWhoClicked()).sendPluginMessage(NexusCore.getPlugin(NexusCore.class), "BungeeCord", out.toByteArray());
+                    });
             addElement(button);
         }
     }

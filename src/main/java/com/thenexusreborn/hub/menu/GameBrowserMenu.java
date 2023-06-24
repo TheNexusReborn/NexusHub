@@ -1,16 +1,18 @@
 package com.thenexusreborn.hub.menu;
 
+import com.starmediadev.starui.element.button.Button;
+import com.starmediadev.starui.gui.InventoryGUI;
 import com.thenexusreborn.hub.NexusHub;
-import com.thenexusreborn.nexuscore.menu.element.button.Button;
-import com.thenexusreborn.nexuscore.menu.gui.Menu;
 import com.thenexusreborn.nexuscore.util.builder.ItemBuilder;
-import org.bukkit.*;
+import org.bukkit.Material;
+import org.bukkit.Sound;
 
-public class GameBrowserMenu extends Menu {
+public class GameBrowserMenu extends InventoryGUI {
     public GameBrowserMenu(NexusHub plugin) {
-        super(plugin, "gamebrowser", "&d&lThe Nexus &r- Where to?", 1);
-        Button sgButton = new Button(ItemBuilder.start(Material.DIAMOND_SWORD).displayName("&6Survival Games").build(), Sound.CLICK);
-        sgButton.setLeftClickAction((player, menu, click) -> player.openInventory(new SGMenu(plugin).getInventory()));
-        setElement(4, sgButton);
+        super(1, "&d&lThe Nexus &r- Where to?");
+        Button sgButton = new Button().clickSound(Sound.CLICK, 1L)
+                .creator(player -> ItemBuilder.start(Material.DIAMOND_SWORD).displayName("&6Survival Games").build())
+                .consumer(e -> e.getWhoClicked().openInventory(new SGMenu(plugin).getInventory()));
+        setElement(0, 4, sgButton);
     }
 }
