@@ -1,5 +1,6 @@
 package com.thenexusreborn.hub.listener;
 
+import com.starmediadev.starui.GuiManager;
 import com.thenexusreborn.api.NexusAPI;
 import com.thenexusreborn.api.helper.StringHelper;
 import com.thenexusreborn.api.player.*;
@@ -62,7 +63,8 @@ public class PlayerListener implements Listener {
         }
         
         if (e.getItem().getType() == Material.COMPASS) {
-            e.getPlayer().openInventory(new GameBrowserMenu(NexusHub.getPlugin(NexusHub.class)).getInventory());
+            GuiManager manager = plugin.getServer().getServicesManager().getRegistration(GuiManager.class).getProvider();
+            manager.openGUI(new GameBrowserMenu(plugin), e.getPlayer());
         }
     }
     
