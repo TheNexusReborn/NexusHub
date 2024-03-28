@@ -1,19 +1,18 @@
 package com.thenexusreborn.hub.menu;
 
-import com.google.common.io.*;
-import com.starmediadev.starui.element.button.Button;
-import com.starmediadev.starui.gui.InventoryGUI;
+import com.stardevllc.starui.element.button.Button;
+import com.stardevllc.starui.gui.InventoryGUI;
 import com.thenexusreborn.api.NexusAPI;
 import com.thenexusreborn.api.helper.StringHelper;
 import com.thenexusreborn.api.server.ServerInfo;
 import com.thenexusreborn.hub.NexusHub;
-import com.thenexusreborn.nexuscore.NexusCore;
 import com.thenexusreborn.nexuscore.util.builder.ItemBuilder;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class SGMenu extends InventoryGUI {
     public SGMenu(NexusHub plugin) {
@@ -55,12 +54,9 @@ public class SGMenu extends InventoryGUI {
 
             ItemStack itemStack = itemBuilder.build();
             Button button = new Button()
-                    .creator(player -> itemStack)
+                    .iconCreator(player -> itemStack)
                     .consumer(e -> {
-                        ByteArrayDataOutput out = ByteStreams.newDataOutput();
-                        out.writeUTF("Connect");
-                        out.writeUTF(server.getName());
-                        ((Player) e.getWhoClicked()).sendPluginMessage(NexusCore.getPlugin(NexusCore.class), "BungeeCord", out.toByteArray());
+                       //TODO
                     });
             addElement(button);
         }

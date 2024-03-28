@@ -23,8 +23,8 @@ public class HubScoreboard extends SpigotScoreboardView {
         }));
         createTeam(new TeamBuilder("blank1").entry(ChatColor.GOLD.toString()).score(13));
         createTeam(new TeamBuilder("balanceLabel").entry("&6&lBALANCE:").score(12));
-        createTeam(new TeamBuilder("creditsValue").entry("&fCredits: &3").score(11).valueUpdater((player, team) -> team.setSuffix(formatBalance(player.getStatValue("credits").getAsDouble()))));
-        createTeam(new TeamBuilder("nexites").entry("&fNexites: &9").score(10).valueUpdater((player, team) -> team.setSuffix(formatBalance(player.getStatValue("nexites").getAsDouble()))));
+        createTeam(new TeamBuilder("creditsValue").entry("&fCredits: &3").score(11).valueUpdater((player, team) -> team.setSuffix(formatBalance(player.getBalance().getCredits()))));
+        createTeam(new TeamBuilder("nexites").entry("&fNexites: &9").score(10).valueUpdater((player, team) -> team.setSuffix(formatBalance(player.getBalance().getNexites()))));
         createTeam(new TeamBuilder("blank2").entry(ChatColor.BLACK.toString()).score(9));
         createTeam(new TeamBuilder("playersLabel").entry("&6&lPLAYERS").score(8));
         createTeam(new TeamBuilder("playersValue").entry(ChatColor.YELLOW.toString()).score(7).valueUpdater((player, team) -> {

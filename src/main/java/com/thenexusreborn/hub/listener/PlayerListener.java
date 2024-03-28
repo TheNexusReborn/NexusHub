@@ -1,6 +1,6 @@
 package com.thenexusreborn.hub.listener;
 
-import com.starmediadev.starui.GuiManager;
+import com.stardevllc.starui.GuiManager;
 import com.thenexusreborn.api.NexusAPI;
 import com.thenexusreborn.api.helper.StringHelper;
 import com.thenexusreborn.api.player.*;
