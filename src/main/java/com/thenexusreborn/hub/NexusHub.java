@@ -3,6 +3,7 @@ package com.thenexusreborn.hub;
 import com.thenexusreborn.api.NexusAPI;
 import com.thenexusreborn.api.server.NetworkType;
 import com.thenexusreborn.hub.cmds.*;
+import com.thenexusreborn.hub.hooks.HubPapiExpansion;
 import com.thenexusreborn.hub.listener.PlayerListener;
 import com.thenexusreborn.hub.thread.*;
 import com.thenexusreborn.nexuscore.NexusCore;
@@ -37,6 +38,8 @@ public class NexusHub extends NexusSpigotPlugin {
         }
 
         this.nexusCore.addNexusPlugin(this);
+        
+        new HubPapiExpansion(this).register();
         
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         getCommand("setspawn").setExecutor(new SetSpawnCmd(this));
