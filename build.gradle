@@ -28,11 +28,11 @@ repositories {
 
 dependencies {
     compileOnly 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT'
-    compileOnly 'com.thenexusreborn:NexusAPI:1.12-ALPHA'
+    compileOnly 'com.thenexusreborn:NexusAPI:1.13-ALPHA'
     compileOnly 'me.clip:placeholderapi:2.11.5'
-    compileOnly 'com.thenexusreborn:NexusCore:1.11-ALPHA'
-    compileOnly 'com.github.StarDevelopmentLLC:StarCore:1.0.0-alpha.14'
-    compileOnly 'com.github.StarDevelopmentLLC:StarChat:1.0.0-alpha.2'
+    compileOnly 'com.thenexusreborn:NexusCore:1.12-ALPHA'
+    compileOnly 'com.github.StarDevelopmentLLC:StarCore:1.0.0-alpha.15'
+    compileOnly 'com.github.StarDevelopmentLLC:StarChat:1.0.0-alpha.3'
     compileOnly 'com.github.StarDevelopmentLLC:StarUI:1.0.0-alpha.1'
 }
 
