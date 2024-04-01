@@ -47,6 +47,12 @@ java {
     }
 }
 
+processResources {
+    filesMatching("*.yml") {
+        expand(project.properties)
+    }
+}
+
 publishing {
     publications {
         maven(MavenPublication) {
@@ -54,3 +60,5 @@ publishing {
         }
     }
 }
+
+tasks.compileJava.dependsOn(clean)

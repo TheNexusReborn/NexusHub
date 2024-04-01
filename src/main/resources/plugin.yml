@@ -1,5 +1,5 @@
 name: NexusHub
-version: ${project.version}
+version: ${version}
 main: com.thenexusreborn.hub.NexusHub
 depend: [NexusCore, StarUI, StarChat, PlaceholderAPI]
 description: The Hub plugin for The Nexus Reborn
