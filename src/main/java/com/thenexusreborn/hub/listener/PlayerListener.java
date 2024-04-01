@@ -2,11 +2,9 @@ package com.thenexusreborn.hub.listener;
 
 import com.stardevllc.starui.GuiManager;
 import com.thenexusreborn.api.NexusAPI;
-import com.thenexusreborn.api.helper.StringHelper;
 import com.thenexusreborn.api.player.NexusPlayer;
 import com.thenexusreborn.api.player.Rank;
 import com.thenexusreborn.api.player.Toggle;
-import com.thenexusreborn.api.server.Phase;
 import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.hub.menu.GameBrowserMenu;
 import com.thenexusreborn.hub.scoreboard.HubScoreboard;
@@ -162,8 +160,7 @@ public class PlayerListener implements Listener {
             nexusPlayer.sendMessage("");
             nexusPlayer.sendMessage("");
 
-            if (NexusAPI.PHASE != Phase.RELEASE) {
-                nexusPlayer.sendMessage("&6&l>> &eWelcome to the &b" + StringHelper.capitalizeEveryWord(NexusAPI.PHASE.name()) + " &ephase of &5The Nexus Reborn");
+                nexusPlayer.sendMessage("&6&l>> &eWelcome to the &bALPHA &ephase of &5The Nexus Reborn");
                 nexusPlayer.sendMessage("&6&l>> &eDue to the phase above, versions of plugins are below");
                 nexusPlayer.sendMessage("&6&l>> &ePlease use these versions in bug reports");
                 nexusPlayer.sendMessage("&6&l>> &eYou can access this list with &b/nexusversion");
@@ -174,7 +171,6 @@ public class PlayerListener implements Listener {
                 for (NexusSpigotPlugin nexusPlugin : nexusCore.getNexusPlugins()) {
                     nexusPlayer.sendMessage("&6&l>> &e" + nexusPlugin.getName() + " v" + nexusPlugin.getDescription().getVersion());
                 }
-            }
     
             ItemStack compass = new ItemStack(Material.COMPASS);
             ItemMeta meta = compass.getItemMeta();
