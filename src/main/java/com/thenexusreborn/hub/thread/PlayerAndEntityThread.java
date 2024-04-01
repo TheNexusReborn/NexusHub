@@ -2,7 +2,6 @@ package com.thenexusreborn.hub.thread;
 
 import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.nexuscore.api.NexusThread;
-import com.thenexusreborn.nexuscore.util.ServerProperties;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -17,9 +16,13 @@ public class PlayerAndEntityThread extends NexusThread<NexusHub> {
     }
     
     public void onRun() {
-        World world = Bukkit.getWorld(ServerProperties.getLevelName());
+        World world = getPlugin().getHubWorld();
         Location spawn = plugin.getSpawn();
         for (Player player : Bukkit.getOnlinePlayers()) {
+            if (!player.getWorld().equals(world)) {
+                continue;
+            }
+            
             if (player.getLocation().getBlockY() < spawn.getBlockY() - 40) {
                 player.teleport(spawn);
             }
@@ -30,7 +33,9 @@ public class PlayerAndEntityThread extends NexusThread<NexusHub> {
     
         for (Entity entity : world.getEntities()) {
             if (!(entity instanceof Player) && !(entity instanceof ItemFrame)) {
-                entity.remove();
+                if (entity.getWorld().equals(getPlugin().getHubWorld())) {
+                    entity.remove();
+                }
             }
         }
     }

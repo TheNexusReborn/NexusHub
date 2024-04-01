@@ -3,19 +3,21 @@ package com.thenexusreborn.hub.listener;
 import com.stardevllc.starui.GuiManager;
 import com.thenexusreborn.api.NexusAPI;
 import com.thenexusreborn.api.helper.StringHelper;
-import com.thenexusreborn.api.player.*;
+import com.thenexusreborn.api.player.NexusPlayer;
+import com.thenexusreborn.api.player.Rank;
+import com.thenexusreborn.api.player.Toggle;
 import com.thenexusreborn.api.server.Phase;
 import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.hub.menu.GameBrowserMenu;
 import com.thenexusreborn.hub.scoreboard.HubScoreboard;
 import com.thenexusreborn.nexuscore.NexusCore;
 import com.thenexusreborn.nexuscore.api.NexusSpigotPlugin;
-import com.thenexusreborn.nexuscore.api.events.*;
+import com.thenexusreborn.nexuscore.api.events.NexusPlayerLoadEvent;
+import com.thenexusreborn.nexuscore.api.events.ToggleChangeEvent;
 import com.thenexusreborn.nexuscore.util.MCUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -46,14 +48,24 @@ public class PlayerListener implements Listener {
     
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
-        HumanEntity whoClicked = e.getWhoClicked();
-        if (whoClicked.getGameMode() != GameMode.CREATIVE) {
+        Player player = (Player) e.getWhoClicked();
+        
+        if (!player.getWorld().equals(plugin.getHubWorld())) {
+            return;
+        }
+        
+        if (player.getGameMode() != GameMode.CREATIVE) {
             e.setCancelled(true);
         }
     }
     
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e) {
+        Player player = e.getPlayer();
+        if (!player.getWorld().equals(plugin.getHubWorld())) {
+            return;
+        }
+        
         if (e.getItem() == null) {
             return;
         }
@@ -204,13 +216,19 @@ public class PlayerListener implements Listener {
     
     @EventHandler
     public void onDamage(EntityDamageEvent e) {
-        if (e.getEntity() instanceof Player) {
+        if (e.getEntity() instanceof Player player) {
+            if (!player.getWorld().equals(plugin.getHubWorld())) {
+                return;
+            }
             e.setCancelled(true);
         }
     }
 
     @EventHandler
     public void onItemDrop(PlayerDropItemEvent e) {
+        if (!e.getPlayer().getWorld().equals(plugin.getHubWorld())) {
+            return;
+        }
         e.setCancelled(true);
     }
 }
