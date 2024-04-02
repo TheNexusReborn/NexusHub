@@ -1,7 +1,7 @@
 package com.thenexusreborn.hub;
 
 import com.thenexusreborn.api.NexusAPI;
-import com.thenexusreborn.api.server.NetworkType;
+import com.thenexusreborn.api.util.NetworkType;
 import com.thenexusreborn.hub.cmds.*;
 import com.thenexusreborn.hub.hooks.HubPapiExpansion;
 import com.thenexusreborn.hub.listener.PlayerListener;

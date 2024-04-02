@@ -44,7 +44,7 @@ public class HubScoreboard extends SpigotScoreboardView {
         }));
         createTeam(new TeamBuilder("blank3").entry(ChatColor.DARK_BLUE.toString()).score(6));
         createTeam(new TeamBuilder("serverLabel").entry("&6&lSERVER:").score(5));
-        createTeam(new TeamBuilder("serverValue").entry("&f" + NexusAPI.getApi().getServerManager().getCurrentServer().getName()).score(4));  
+        createTeam(new TeamBuilder("serverValue").entry("&fNexus"));  
     }
     
     private String formatBalance(double balance) {
