@@ -5,6 +5,7 @@ import com.thenexusreborn.api.util.NetworkType;
 import com.thenexusreborn.hub.cmds.*;
 import com.thenexusreborn.hub.hooks.HubPapiExpansion;
 import com.thenexusreborn.hub.listener.PlayerListener;
+import com.thenexusreborn.hub.listener.ServerListener;
 import com.thenexusreborn.hub.thread.*;
 import com.thenexusreborn.nexuscore.NexusCore;
 import com.thenexusreborn.nexuscore.api.NexusSpigotPlugin;
@@ -42,6 +43,8 @@ public class NexusHub extends NexusSpigotPlugin {
         new HubPapiExpansion(this).register();
         
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
+        getServer().getPluginManager().registerEvents(new ServerListener(this), this);
+        
         getCommand("setspawn").setExecutor(new SetSpawnCmd(this));
         getCommand("spawn").setExecutor(new SpawnCmd(this));
         World world = getHubWorld();
