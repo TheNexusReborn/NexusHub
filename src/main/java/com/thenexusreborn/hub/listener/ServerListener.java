@@ -21,15 +21,17 @@ public class ServerListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onServerSetup(NexusServerSetupEvent e) {
         if (e.getNetworkType() == NetworkType.MULTI) {
-            e.setServer(new HubInstanceServer("Hub")); //TODO Grab name from somewhere
+            e.setServer(new HubInstanceServer(plugin, "Hub")); //TODO Grab name from somewhere
             return;
         }
 
         Plugin survivalGames = plugin.getServer().getPluginManager().getPlugin("SurvivalGames");
         if (survivalGames == null) {
-            e.setServer(new HubInstanceServer("Hub"));
+            e.setServer(new HubInstanceServer(plugin, "Hub"));
         } else {
-            e.addVirtualServer(new HubVirtualServer("Hub"));
+            HubVirtualServer hubServer = new HubVirtualServer(plugin, "Hub");
+            e.addVirtualServer(hubServer);
+            e.setPrimaryVirtualServer(hubServer);
         }
     }
 }

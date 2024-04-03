@@ -31,7 +31,7 @@ dependencies {
     compileOnly 'com.thenexusreborn:NexusAPI:1.13-ALPHA'
     compileOnly 'me.clip:placeholderapi:2.11.5'
     compileOnly 'com.thenexusreborn:NexusCore:1.12-ALPHA'
-    compileOnly 'com.github.StarDevelopmentLLC:StarCore:1.0.0-alpha.15'
+    compileOnly 'com.github.StarDevelopmentLLC:StarCore:1.0.0-alpha.16'
     compileOnly 'com.github.StarDevelopmentLLC:StarChat:1.0.0-alpha.3'
     compileOnly 'com.github.StarDevelopmentLLC:StarUI:1.0.0-alpha.1'
 }
