@@ -9,11 +9,11 @@ import org.bukkit.*;
 import org.bukkit.entity.Player;
 
 public class HubScoreboard extends SpigotScoreboardView {
-    
+
     public HubScoreboard(NexusScoreboard scoreboard) {
         super(scoreboard, "lobby", MCUtils.color("&5&lTHE NEXUS"));
     }
-    
+
     @Override
     public void registerTeams() {
         createTeam(new TeamBuilder("rankLabel").entry("&6&lRANK:").score(15));
@@ -30,10 +30,21 @@ public class HubScoreboard extends SpigotScoreboardView {
         createTeam(new TeamBuilder("playersValue").entry(ChatColor.YELLOW.toString()).score(7).valueUpdater((player, team) -> {
             int onlinePlayers = 0;
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                if (onlinePlayer.getUniqueId().equals(player.getUniqueId())) {
+                    onlinePlayers++;
+                    continue;
+                }
                 NexusPlayer onp = NexusAPI.getApi().getPlayerManager().getNexusPlayer(onlinePlayer.getUniqueId());
                 if (onp == null) continue;
-                if (onp.getToggleValue("incognito") || onp.getToggleValue("vanish")) {
-                    if (player.getRank().ordinal() <= Rank.HELPER.ordinal()) {
+
+                Toggle vanish = onp.getToggle("vanish");
+                Toggle incognito = onp.getToggle("incognito");
+                if (incognito != null && incognito.getValue()) {
+                    if (player.getRank().ordinal() <= incognito.getInfo().getMinRank().ordinal()) {
+                        onlinePlayers++;
+                    }
+                } else if (vanish != null && vanish.getValue()) {
+                    if (player.getRank().ordinal() <= vanish.getInfo().getMinRank().ordinal()) {
                         onlinePlayers++;
                     }
                 } else {
@@ -44,9 +55,9 @@ public class HubScoreboard extends SpigotScoreboardView {
         }));
         createTeam(new TeamBuilder("blank3").entry(ChatColor.DARK_BLUE.toString()).score(6));
         createTeam(new TeamBuilder("serverLabel").entry("&6&lSERVER:").score(5));
-        createTeam(new TeamBuilder("serverValue").entry("&fNexus"));  
+        createTeam(new TeamBuilder("serverValue").entry("&fNexus"));
     }
-    
+
     private String formatBalance(double balance) {
         if (balance < 1000) {
             return MCUtils.formatNumber(balance);
