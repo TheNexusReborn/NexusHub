@@ -49,14 +49,13 @@ public class NexusHub extends NexusSpigotPlugin {
         getCommand("spawn").setExecutor(new SpawnCmd(this));
         World world = getHubWorld();
         if (this.getConfig().contains("spawn")) {
-            String worldName = this.getConfig().getString("spawn.world");
             int x = Integer.parseInt(this.getConfig().getString("spawn.x"));
             int y = Integer.parseInt(this.getConfig().getString("spawn.y"));
             int z = Integer.parseInt(this.getConfig().getString("spawn.z"));
             float yaw = Float.parseFloat(this.getConfig().getString("spawn.yaw"));
             float pitch = Float.parseFloat(this.getConfig().getString("spawn.pitch"));
 
-            spawn = new Location(Bukkit.getWorld(worldName), x + 0.5, y, z + 0.5, yaw, pitch);
+            spawn = new Location(world, x + 0.5, y, z + 0.5, yaw, pitch);
         } else {
             spawn = world.getSpawnLocation().add(0.5, 0, 0.5);
         }
