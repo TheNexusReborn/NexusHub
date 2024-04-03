@@ -1,5 +1,6 @@
 package com.thenexusreborn.hub.server;
 
+import com.stardevllc.starchat.rooms.DefaultPermissions;
 import com.thenexusreborn.api.player.NexusPlayer;
 import com.thenexusreborn.api.player.Rank;
 import com.thenexusreborn.api.server.InstanceServer;
@@ -43,6 +44,8 @@ public class HubVirtualServer extends VirtualServer {
         }
 
         this.players.add(nexusPlayer.getUniqueId());
+        plugin.getHubChatRoom().addMember(player.getUniqueId(), DefaultPermissions.VIEW_MESSAGES, DefaultPermissions.SEND_MESSAGES);
+        plugin.getNexusCore().getStarChatPlugin().setPlayerFocus(player, plugin.getHubChatRoom());
 
         ItemStack compass = new ItemStack(Material.COMPASS);
         ItemMeta meta = compass.getItemMeta();
@@ -54,6 +57,7 @@ public class HubVirtualServer extends VirtualServer {
     @Override
     public void quit(NexusPlayer nexusPlayer) {
         this.players.remove(nexusPlayer.getUniqueId());
+        plugin.getHubChatRoom().removeMember(nexusPlayer.getUniqueId());
     }
 
     @Override

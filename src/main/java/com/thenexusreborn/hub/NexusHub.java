@@ -1,16 +1,23 @@
 package com.thenexusreborn.hub;
 
+import com.stardevllc.starchat.rooms.ChatRoom;
+import com.stardevllc.starmclib.actor.Actor;
 import com.thenexusreborn.api.NexusAPI;
 import com.thenexusreborn.api.util.NetworkType;
-import com.thenexusreborn.hub.cmds.*;
+import com.thenexusreborn.hub.cmds.SetSpawnCmd;
+import com.thenexusreborn.hub.cmds.SpawnCmd;
 import com.thenexusreborn.hub.hooks.HubPapiExpansion;
 import com.thenexusreborn.hub.listener.PlayerListener;
 import com.thenexusreborn.hub.listener.ServerListener;
-import com.thenexusreborn.hub.thread.*;
+import com.thenexusreborn.hub.thread.PlayerAndEntityThread;
+import com.thenexusreborn.hub.thread.WorldThread;
 import com.thenexusreborn.nexuscore.NexusCore;
 import com.thenexusreborn.nexuscore.api.NexusSpigotPlugin;
 import com.thenexusreborn.nexuscore.util.ServerProperties;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Difficulty;
+import org.bukkit.Location;
+import org.bukkit.World;
 
 public class NexusHub extends NexusSpigotPlugin {
 
@@ -18,6 +25,8 @@ public class NexusHub extends NexusSpigotPlugin {
     private Location spawn;
     private String hubWorldName;
     private World hubWorld;
+    
+    private ChatRoom hubChatRoom;
 
     @Override
     public void onEnable() {
@@ -39,6 +48,10 @@ public class NexusHub extends NexusSpigotPlugin {
         }
 
         this.nexusCore.addNexusPlugin(this);
+        
+        this.hubChatRoom = new ChatRoom(this, "hub", Actor.of(this));
+        this.hubChatRoom.setSenderFormat(this.nexusCore.getGlobalChannel().getSenderFormat()); //Just use the same format as normal global chat.
+        this.nexusCore.getStarChatPlugin().getRoomRegistry().register(this.hubChatRoom.getSimplifiedName(), this.hubChatRoom);
         
         new HubPapiExpansion(this).register();
         
@@ -100,5 +113,9 @@ public class NexusHub extends NexusSpigotPlugin {
 
     public Location getSpawn() {
         return spawn;
+    }
+
+    public ChatRoom getHubChatRoom() {
+        return hubChatRoom;
     }
 }
