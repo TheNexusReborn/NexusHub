@@ -66,12 +66,6 @@ public class PlayerListener implements Listener {
     }
     
     @EventHandler
-    public void onPlayerLoad(NexusPlayerLoadEvent e) {
-        e.setScoreboardView(new HubScoreboard(e.getNexusPlayer().getScoreboard()));
-        e.setJoinMessage(null);
-    }
-    
-    @EventHandler
     public void onToggleChange(ToggleChangeEvent e) {
         NexusPlayer nexusPlayer = e.getNexusPlayer();
         Toggle toggle = e.getToggle();
