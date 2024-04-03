@@ -113,13 +113,5 @@ public class SGMenu extends InventoryGUI {
                     });
             addElement(button);
         }
-//
-//            ItemStack itemStack = itemBuilder.build();
-//            Button button = new Button()
-//                    .iconCreator(player -> itemStack)
-//                    .consumer(e -> {
-//                    });
-//            addElement(button);
-//        }
     }
 }
