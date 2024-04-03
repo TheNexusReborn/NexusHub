@@ -30,7 +30,7 @@ public class SGMenu extends InventoryGUI {
         Map<String, NexusServer> sgServers = new TreeMap<>();
 
         for (NexusServer server : NexusAPI.getApi().getServerRegistry()) {
-            if (server.getMode().equalsIgnoreCase("sg")) {
+            if (server.getMode().equalsIgnoreCase("survivalgames")) {
                 sgServers.put(server.getName(), server);
             }
         }
