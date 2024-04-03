@@ -12,7 +12,7 @@ public class HubInstanceServer extends InstanceServer {
         super(name, "hub", 100);
         this.plugin = plugin;
         
-        this.primaryVirtualServer = new HubVirtualServer(plugin, this, name + "1");
+        this.primaryVirtualServer.set(new HubVirtualServer(plugin, this, name + "1"));
     }
 
     @Override
