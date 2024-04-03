@@ -1,14 +1,10 @@
 package com.thenexusreborn.hub.listener;
 
 import com.stardevllc.starui.GuiManager;
-import com.thenexusreborn.api.NexusAPI;
 import com.thenexusreborn.api.player.NexusPlayer;
-import com.thenexusreborn.api.player.Rank;
 import com.thenexusreborn.api.player.Toggle;
 import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.hub.menu.GameBrowserMenu;
-import com.thenexusreborn.hub.scoreboard.HubScoreboard;
-import com.thenexusreborn.nexuscore.api.events.NexusPlayerLoadEvent;
 import com.thenexusreborn.nexuscore.api.events.ToggleChangeEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -73,19 +69,12 @@ public class PlayerListener implements Listener {
         if (player == null) {
             return;
         }
+
+        if (!player.getWorld().equals(plugin.getHubWorld())) {
+            return;
+        }
         
-        if (toggle.getInfo().getName().equalsIgnoreCase("vanish") || toggle.getInfo().getName().equalsIgnoreCase("incognito")) {
-            for (Player other : Bukkit.getOnlinePlayers()) {
-                if (!e.newValue()) {
-                    other.showPlayer(player);
-                } else {
-                    NexusPlayer np = NexusAPI.getApi().getPlayerManager().getNexusPlayer(other.getUniqueId());
-                    if (np.getRank().ordinal() > Rank.HELPER.ordinal()) {
-                        other.hidePlayer(player);
-                    }
-                }
-            }
-        } else if (toggle.getInfo().getName().equalsIgnoreCase("fly")) {
+        if (toggle.getInfo().getName().equalsIgnoreCase("fly")) {
             player.setAllowFlight(e.newValue());
         }
     }
