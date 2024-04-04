@@ -61,8 +61,8 @@ public class SGMenu extends InventoryGUI {
                         itemBuilder.material(Material.EMERALD_BLOCK);
                         itemBuilder.displayName("&a" + server.getName());
                         JsonObject playersObject = stateObject.getAsJsonObject("players");
-                        itemBuilder.lore("Map: " + map,
-                                "Time: " + stateObject.get("time").getAsInt() + "s",
+                        itemBuilder.lore("&eMap: &b" + map,
+                                "&eTime: &a" + stateObject.get("time").getAsInt() + "s",
                                 "&d" + playersObject.get("playing").getAsInt() + "&e/&5" + server.getMaxPlayers());
                     }
                 } else if (type.equalsIgnoreCase("game")) {
@@ -73,7 +73,7 @@ public class SGMenu extends InventoryGUI {
                     } else if (List.of("setting_up", "setup_complete", "assign_teams", "teams_assigned", "teleport_start", "teleport_start_done").contains(state)) {
                         itemBuilder.material(Material.GOLD_BLOCK);
                         itemBuilder.displayName("&e" + server.getName());
-                        itemBuilder.lore("Server is setting up a game, cannot join.");
+                        itemBuilder.lore("&eServer is setting up a game, cannot join.");
                     } else {
                         itemBuilder.material(Material.DIAMOND_BLOCK);
                         itemBuilder.displayName("&b" + server.getName());
