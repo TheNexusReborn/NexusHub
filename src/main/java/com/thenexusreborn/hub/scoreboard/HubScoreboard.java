@@ -3,15 +3,21 @@ package com.thenexusreborn.hub.scoreboard;
 import com.thenexusreborn.api.NexusAPI;
 import com.thenexusreborn.api.player.*;
 import com.thenexusreborn.api.scoreboard.*;
+import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.nexuscore.scoreboard.SpigotScoreboardView;
 import com.thenexusreborn.nexuscore.util.MCUtils;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 
+import java.util.UUID;
+
 public class HubScoreboard extends SpigotScoreboardView {
 
-    public HubScoreboard(NexusScoreboard scoreboard) {
+    private NexusHub plugin;
+    
+    public HubScoreboard(NexusScoreboard scoreboard, NexusHub plugin) {
         super(scoreboard, "lobby", MCUtils.color("&5&lTHE NEXUS"));
+        this.plugin = plugin;
     }
 
     @Override
@@ -29,7 +35,12 @@ public class HubScoreboard extends SpigotScoreboardView {
         createTeam(new TeamBuilder("playersLabel").entry("&6&lPLAYERS").score(8));
         createTeam(new TeamBuilder("playersValue").entry(ChatColor.YELLOW.toString()).score(7).valueUpdater((player, team) -> {
             int onlinePlayers = 0;
-            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+
+            for (UUID uuid : plugin.getHubServer().getPlayers()) {
+                Player onlinePlayer = Bukkit.getPlayer(uuid);
+                if (onlinePlayer == null) {
+                    continue;
+                }
                 if (onlinePlayer.getUniqueId().equals(player.getUniqueId())) {
                     onlinePlayers++;
                     continue;
@@ -51,6 +62,7 @@ public class HubScoreboard extends SpigotScoreboardView {
                     onlinePlayers++;
                 }
             }
+            
             team.setPrefix(MCUtils.color("&f" + onlinePlayers + "/" + Bukkit.getServer().getMaxPlayers()));
         }));
         createTeam(new TeamBuilder("blank3").entry(ChatColor.DARK_BLUE.toString()).score(6));

@@ -37,7 +37,7 @@ public class HubVirtualServer extends VirtualServer {
 
         player.getInventory().clear();
         
-        nexusPlayer.getScoreboard().setView(new HubScoreboard(nexusPlayer.getScoreboard()));
+        nexusPlayer.getScoreboard().setView(new HubScoreboard(nexusPlayer.getScoreboard(), plugin));
 
         if (nexusPlayer.getRank().ordinal() <= Rank.DIAMOND.ordinal()) {
             player.setAllowFlight(nexusPlayer.getToggleValue("fly"));

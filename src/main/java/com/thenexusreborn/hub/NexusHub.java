@@ -3,6 +3,7 @@ package com.thenexusreborn.hub;
 import com.stardevllc.starchat.rooms.ChatRoom;
 import com.stardevllc.starcore.utils.actor.Actor;
 import com.thenexusreborn.api.NexusAPI;
+import com.thenexusreborn.api.server.NexusServer;
 import com.thenexusreborn.api.util.NetworkType;
 import com.thenexusreborn.hub.cmds.SetSpawnCmd;
 import com.thenexusreborn.hub.cmds.SpawnCmd;
@@ -27,6 +28,8 @@ public class NexusHub extends NexusSpigotPlugin {
     private World hubWorld;
     
     private ChatRoom hubChatRoom;
+    
+    private NexusServer hubServer;
 
     @Override
     public void onEnable() {
@@ -117,5 +120,13 @@ public class NexusHub extends NexusSpigotPlugin {
 
     public ChatRoom getHubChatRoom() {
         return hubChatRoom;
+    }
+
+    public NexusServer getHubServer() {
+        return hubServer;
+    }
+
+    public void setHubServer(NexusServer hubServer) {
+        this.hubServer = hubServer;
     }
 }
