@@ -12,6 +12,7 @@ import com.thenexusreborn.api.server.NexusServer;
 import com.thenexusreborn.api.util.NetworkType;
 import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.hub.api.ServerSelectEvent;
+import com.thenexusreborn.nexuscore.util.MsgType;
 import com.thenexusreborn.nexuscore.util.builder.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -107,8 +108,13 @@ public class SGMenu extends InventoryGUI {
             Button button = new Button().iconCreator(player -> itemBuilder.build())
                     .consumer(e -> {
                         if (NexusAPI.NETWORK_TYPE == NetworkType.SINGLE && Bukkit.getPluginManager().getPlugin("SurvivalGames") != null) {
+                            plugin.getHubServer().getPlayers().remove(e.getWhoClicked().getUniqueId());
                             ServerSelectEvent serverSelectEvent = new ServerSelectEvent(NexusAPI.getApi().getPlayerManager().getNexusPlayer(e.getWhoClicked().getUniqueId()), server.getName());
                             Bukkit.getServer().getPluginManager().callEvent(serverSelectEvent);
+                            if (serverSelectEvent.isCancelled()) {
+                                e.getWhoClicked().sendMessage(MsgType.ERROR.format(serverSelectEvent.getErrorMessage()));
+                                plugin.getHubServer().getPlayers().add(e.getWhoClicked().getUniqueId());
+                            }
                         }
                     });
             addElement(button);
