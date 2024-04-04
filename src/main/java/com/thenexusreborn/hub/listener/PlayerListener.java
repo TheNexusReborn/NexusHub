@@ -1,6 +1,6 @@
 package com.thenexusreborn.hub.listener;
 
-import com.stardevllc.starui.GuiManager;
+import com.stardevllc.starcore.gui.GuiManager;
 import com.thenexusreborn.api.player.NexusPlayer;
 import com.thenexusreborn.api.player.Toggle;
 import com.thenexusreborn.hub.NexusHub;

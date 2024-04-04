@@ -1,7 +1,7 @@
 package com.thenexusreborn.hub;
 
 import com.stardevllc.starchat.rooms.ChatRoom;
-import com.stardevllc.starmclib.actor.Actor;
+import com.stardevllc.starcore.utils.actor.Actor;
 import com.thenexusreborn.api.NexusAPI;
 import com.thenexusreborn.api.util.NetworkType;
 import com.thenexusreborn.hub.cmds.SetSpawnCmd;
