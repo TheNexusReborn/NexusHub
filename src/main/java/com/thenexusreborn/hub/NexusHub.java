@@ -1,10 +1,10 @@
 package com.thenexusreborn.hub;
 
 import com.stardevllc.starchat.rooms.ChatRoom;
-import com.stardevllc.starcore.utils.actor.Actor;
 import com.thenexusreborn.api.NexusAPI;
 import com.thenexusreborn.api.server.NexusServer;
 import com.thenexusreborn.api.util.NetworkType;
+import com.thenexusreborn.hub.chat.HubChatRoom;
 import com.thenexusreborn.hub.cmds.SetSpawnCmd;
 import com.thenexusreborn.hub.cmds.SpawnCmd;
 import com.thenexusreborn.hub.hooks.HubPapiExpansion;
@@ -52,9 +52,8 @@ public class NexusHub extends NexusSpigotPlugin {
 
         this.nexusCore.addNexusPlugin(this);
         
-        this.hubChatRoom = new ChatRoom(this, "hub", Actor.of(this));
-        this.hubChatRoom.setSenderFormat(this.nexusCore.getGlobalChannel().getSenderFormat()); //Just use the same format as normal global chat.
-        this.nexusCore.getStarChatPlugin().getRoomRegistry().register(this.hubChatRoom.getSimplifiedName(), this.hubChatRoom);
+        this.hubChatRoom = new HubChatRoom(this);
+        this.nexusCore.getStarChatPlugin().getRoomRegistry().register(this.hubChatRoom.getName(), this.hubChatRoom);
         
         new HubPapiExpansion(this).register();
         
