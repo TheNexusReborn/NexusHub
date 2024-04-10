@@ -20,12 +20,12 @@ public class SetSpawnCmd implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         Rank senderRank = MCUtils.getSenderRank(plugin.getNexusCore(), sender);
         if (senderRank.ordinal() > Rank.ADMIN.ordinal()) {
-            sender.sendMessage(MCUtils.color("&cYou do not have permission to use that command."));
+            sender.sendMessage(ColorUtils.color("&cYou do not have permission to use that command."));
             return true;
         }
         
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(MCUtils.color("&cOnly players can use that command."));
+            sender.sendMessage(ColorUtils.color("&cOnly players can use that command."));
             return true;
         }
         
@@ -35,7 +35,7 @@ public class SetSpawnCmd implements CommandExecutor {
         }
     
         plugin.setSpawn(player.getLocation());
-        player.sendMessage(MCUtils.color(MsgType.INFO + "You set the spawn to your current location."));
+        player.sendMessage(ColorUtils.color(MsgType.INFO + "You set the spawn to your current location."));
         return true;
     }
 }

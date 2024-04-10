@@ -1,5 +1,6 @@
 package com.thenexusreborn.hub.scoreboard;
 
+import com.stardevllc.starcore.utils.color.ColorUtils;
 import com.thenexusreborn.api.NexusAPI;
 import com.thenexusreborn.api.player.*;
 import com.thenexusreborn.api.scoreboard.*;
@@ -16,7 +17,7 @@ public class HubScoreboard extends SpigotScoreboardView {
     private NexusHub plugin;
     
     public HubScoreboard(NexusScoreboard scoreboard, NexusHub plugin) {
-        super(scoreboard, "lobby", MCUtils.color("&5&lTHE NEXUS"));
+        super(scoreboard, "lobby", ColorUtils.color("&5&lTHE NEXUS"));
         this.plugin = plugin;
     }
 
@@ -63,7 +64,7 @@ public class HubScoreboard extends SpigotScoreboardView {
                 }
             }
             
-            team.setPrefix(MCUtils.color("&f" + onlinePlayers + "/" + Bukkit.getServer().getMaxPlayers()));
+            team.setPrefix(ColorUtils.color("&f" + onlinePlayers + "/" + Bukkit.getServer().getMaxPlayers()));
         }));
         createTeam(new TeamBuilder("blank3").entry(ChatColor.DARK_BLUE.toString()).score(6));
         createTeam(new TeamBuilder("serverLabel").entry("&6&lSERVER:").score(5));

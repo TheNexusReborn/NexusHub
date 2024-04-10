@@ -1,13 +1,13 @@
 package com.thenexusreborn.hub.server;
 
 import com.stardevllc.starchat.rooms.DefaultPermissions;
+import com.stardevllc.starcore.utils.color.ColorUtils;
 import com.thenexusreborn.api.player.NexusPlayer;
 import com.thenexusreborn.api.player.Rank;
 import com.thenexusreborn.api.server.InstanceServer;
 import com.thenexusreborn.api.server.VirtualServer;
 import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.hub.scoreboard.HubScoreboard;
-import com.thenexusreborn.nexuscore.util.MCUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -49,7 +49,7 @@ public class HubVirtualServer extends VirtualServer {
 
         ItemStack compass = new ItemStack(Material.COMPASS);
         ItemMeta meta = compass.getItemMeta();
-        meta.setDisplayName(MCUtils.color("&e&lGAME SELECTOR &7&o(Right Click)"));
+        meta.setDisplayName(ColorUtils.color("&e&lGAME SELECTOR &7&o(Right Click)"));
         compass.setItemMeta(meta);
         player.getInventory().setItem(4, compass);
     }
