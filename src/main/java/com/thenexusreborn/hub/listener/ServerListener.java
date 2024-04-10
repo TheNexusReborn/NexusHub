@@ -23,7 +23,7 @@ public class ServerListener implements Listener {
         if (e.getNetworkType() == NetworkType.MULTI) {
             HubInstanceServer hub = new HubInstanceServer(plugin, "Hub");
             plugin.setHubServer(hub);
-            e.setServer(hub); //TODO Grab name from somewhere
+            e.setServer(hub);
             return;
         }
 
