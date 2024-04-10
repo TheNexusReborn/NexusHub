@@ -1,11 +1,13 @@
 package com.thenexusreborn.hub.menu;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.stardevllc.starcore.gui.element.button.Button;
 import com.stardevllc.starcore.gui.gui.InventoryGUI;
+import com.stardevllc.starcore.utils.item.ItemBuilder;
 import com.stardevllc.starlib.time.TimeFormat;
 import com.thenexusreborn.api.NexusAPI;
 import com.thenexusreborn.api.server.NexusServer;
@@ -13,9 +15,7 @@ import com.thenexusreborn.api.util.NetworkType;
 import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.hub.api.ServerSelectEvent;
 import com.thenexusreborn.nexuscore.util.MsgType;
-import com.thenexusreborn.nexuscore.util.builder.ItemBuilder;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 
 import java.util.List;
 import java.util.Map;
@@ -37,12 +37,12 @@ public class SGMenu extends InventoryGUI {
         }
 
         for (NexusServer server : sgServers.values()) {
-            ItemBuilder itemBuilder = ItemBuilder.start(Material.AIR);
+            ItemBuilder itemBuilder = ItemBuilder.of(XMaterial.AIR);
 
             if (server.getStatus().equalsIgnoreCase("offline")) {
-                itemBuilder.material(Material.BEDROCK);
+                itemBuilder.material(XMaterial.BEDROCK);
                 itemBuilder.displayName("&4" + server.getName());
-                itemBuilder.lore("&4&lOFFLINE");
+                itemBuilder.addLoreLine("&4&lOFFLINE");
             } else {
                 JsonObject stateObject = (JsonObject) new JsonParser().parse(server.getState());
                 String map = stateObject.get("map").getAsString();
@@ -50,56 +50,56 @@ public class SGMenu extends InventoryGUI {
                 String state = stateObject.get("state").getAsString().toLowerCase();
                 if (type.equalsIgnoreCase("lobby")) {
                     if (List.of("shutting_down", "setup").contains(state)) {
-                        itemBuilder.material(Material.REDSTONE_BLOCK);
+                        itemBuilder.material(XMaterial.REDSTONE_BLOCK);
                         itemBuilder.displayName("&c" + server.getName());
-                        itemBuilder.lore("&cServer not ready for players.");
+                        itemBuilder.addLoreLine("&cServer not ready for players.");
                     } else if (List.of("starting", "preparing_game", "game_prepared").contains(state)) {
-                        itemBuilder.material(Material.GOLD_BLOCK);
+                        itemBuilder.material(XMaterial.GOLD_BLOCK);
                         itemBuilder.displayName("&e" + server.getName());
-                        itemBuilder.lore("&eServer is preparing a game, cannot join.");
+                        itemBuilder.addLoreLine("&eServer is preparing a game, cannot join.");
                     } else if (List.of("waiting", "countdown").contains(state)) {
-                        itemBuilder.material(Material.EMERALD_BLOCK);
+                        itemBuilder.material(XMaterial.EMERALD_BLOCK);
                         itemBuilder.displayName("&a" + server.getName());
                         JsonObject playersObject = stateObject.getAsJsonObject("players");
-                        itemBuilder.lore("&eMap: &b" + map,
+                        itemBuilder.setLore(List.of("&eMap: &b" + map,
                                 "&eTime: &a" + stateObject.get("time").getAsInt() + "s",
-                                "&d" + playersObject.get("playing").getAsInt() + "&e/&5" + server.getMaxPlayers());
+                                "&d" + playersObject.get("playing").getAsInt() + "&e/&5" + server.getMaxPlayers()));
                     }
                 } else if (type.equalsIgnoreCase("game")) {
                     if (List.of("undefined", "error", "shutting_down").contains(state)) {
-                        itemBuilder.material(Material.REDSTONE_BLOCK);
+                        itemBuilder.material(XMaterial.REDSTONE_BLOCK);
                         itemBuilder.displayName("&c" + server.getName());
-                        itemBuilder.lore("&cError");
+                        itemBuilder.addLoreLine("&cError");
                     } else if (List.of("setting_up", "setup_complete", "assign_teams", "teams_assigned", "teleport_start", "teleport_start_done").contains(state)) {
-                        itemBuilder.material(Material.GOLD_BLOCK);
+                        itemBuilder.material(XMaterial.GOLD_BLOCK);
                         itemBuilder.displayName("&e" + server.getName());
-                        itemBuilder.lore("&eServer is setting up a game, cannot join.");
+                        itemBuilder.addLoreLine("&eServer is setting up a game, cannot join.");
                     } else {
-                        itemBuilder.material(Material.DIAMOND_BLOCK);
+                        itemBuilder.material(XMaterial.DIAMOND_BLOCK);
                         itemBuilder.displayName("&b" + server.getName());
                         
                         JsonObject timeObject = stateObject.getAsJsonObject("time");
                         JsonObject playersObject = stateObject.getAsJsonObject("players");
                         
                         if (state.startsWith("warmup")) {
-                            itemBuilder.lore("&e&lWARMUP", 
+                            itemBuilder.setLore(List.of("&e&lWARMUP", 
                                     "&eTime: " + timeObject.get("main").getAsInt() + "s",
-                                    "&d" + (playersObject.get("tributes").getAsInt() + playersObject.get("spectators").getAsInt()) + "&e/&5" + server.getMaxPlayers());
+                                    "&d" + (playersObject.get("tributes").getAsInt() + playersObject.get("spectators").getAsInt()) + "&e/&5" + server.getMaxPlayers()));
                         } else if (state.startsWith("ingame")) {
-                            itemBuilder.lore("&a&lINGAME", 
+                            itemBuilder.setLore(List.of("&a&lINGAME", 
                                     "&aTributes: &f" + playersObject.get("tributes").getAsInt(), 
                                     "&cSpectators: &f" + playersObject.get("spectators").getAsInt(), 
                                     "&dMutations: &f" + playersObject.get("mutations").getAsInt(), 
                                     "", 
-                                    "&3Time: &f" + new TimeFormat("%00m%%00s%").format(timeObject.get("main").getAsLong()));
+                                    "&3Time: &f" + new TimeFormat("%00m%%00s%").format(timeObject.get("main").getAsLong())));
                         } else if (state.contains("deathmatch")) {
-                            itemBuilder.lore("&c&lDEATHMATCH",
+                            itemBuilder.setLore(List.of("&c&lDEATHMATCH",
                                     "&aTributes: &f" + playersObject.get("tributes").getAsInt(),
                                     "&cSpectators: &f" + playersObject.get("spectators").getAsInt(),
                                     "",
-                                    "&3Time: &f" + new TimeFormat("%00m%%00s%").format(timeObject.get("main").getAsLong()));
+                                    "&3Time: &f" + new TimeFormat("%00m%%00s%").format(timeObject.get("main").getAsLong())));
                         } else {
-                            itemBuilder.lore("&6&lENDING");
+                            itemBuilder.setLore(List.of("&6&lENDING"));
                         }
                     }
                 }
