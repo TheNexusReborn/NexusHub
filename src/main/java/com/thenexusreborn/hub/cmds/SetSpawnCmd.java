@@ -1,6 +1,6 @@
 package com.thenexusreborn.hub.cmds;
 
-import com.stardevllc.starcore.utils.color.ColorUtils;
+import com.stardevllc.starcore.color.ColorUtils;
 import com.thenexusreborn.api.player.Rank;
 import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.nexuscore.util.MCUtils;

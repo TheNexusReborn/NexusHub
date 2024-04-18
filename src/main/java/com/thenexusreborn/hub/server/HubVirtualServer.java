@@ -1,7 +1,7 @@
 package com.thenexusreborn.hub.server;
 
 import com.stardevllc.starchat.rooms.DefaultPermissions;
-import com.stardevllc.starcore.utils.color.ColorUtils;
+import com.stardevllc.starcore.color.ColorUtils;
 import com.thenexusreborn.api.player.NexusPlayer;
 import com.thenexusreborn.api.player.Rank;
 import com.thenexusreborn.api.server.InstanceServer;
