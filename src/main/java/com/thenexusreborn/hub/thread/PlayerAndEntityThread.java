@@ -1,7 +1,7 @@
 package com.thenexusreborn.hub.thread;
 
+import com.stardevllc.starcore.utils.StarThread;
 import com.thenexusreborn.hub.NexusHub;
-import com.thenexusreborn.nexuscore.api.NexusThread;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -9,7 +9,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
 
-public class PlayerAndEntityThread extends NexusThread<NexusHub> {
+public class PlayerAndEntityThread extends StarThread<NexusHub> {
     
     public PlayerAndEntityThread(NexusHub plugin) {
         super(plugin, 1L, 1L, false);

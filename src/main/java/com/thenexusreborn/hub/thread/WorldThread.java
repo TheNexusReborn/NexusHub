@@ -1,10 +1,10 @@
 package com.thenexusreborn.hub.thread;
 
+import com.stardevllc.starcore.utils.StarThread;
 import com.thenexusreborn.hub.NexusHub;
-import com.thenexusreborn.nexuscore.api.NexusThread;
 import org.bukkit.World;
 
-public class WorldThread extends NexusThread<NexusHub> {
+public class WorldThread extends StarThread<NexusHub> {
     
     public WorldThread(NexusHub plugin) {
         super(plugin, 20L, 0L, false);
