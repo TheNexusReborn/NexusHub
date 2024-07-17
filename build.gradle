@@ -40,7 +40,7 @@ version = '1.7-ALPHA'
 description = 'NexusHub'
 
 jar {
-    destinationDirectory = file(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "JarOutput" + File.separator + "NexusReborn")
+    //destinationDirectory = file(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "JarOutput" + File.separator + "NexusReborn")
 }
 
 java {
@@ -64,3 +64,4 @@ publishing {
 }
 
 tasks.compileJava.dependsOn(clean)
+tasks.build.finalizedBy(publishToMavenLocal)
