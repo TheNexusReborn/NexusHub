@@ -8,7 +8,7 @@ import com.stardevllc.starcore.gui.element.button.Button;
 import com.stardevllc.starcore.gui.gui.InventoryGUI;
 import com.stardevllc.starcore.item.ItemBuilder;
 import com.stardevllc.starcore.xseries.XMaterial;
-import com.stardevllc.starlib.time.TimeFormat;
+import com.stardevllc.time.TimeFormat;
 import com.thenexusreborn.api.NexusAPI;
 import com.thenexusreborn.api.server.NexusServer;
 import com.thenexusreborn.api.util.NetworkType;
