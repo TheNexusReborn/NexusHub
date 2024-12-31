@@ -109,6 +109,7 @@ public class SGMenu extends InventoryGUI {
                     .consumer(e -> {
                         if (NexusAPI.NETWORK_TYPE == NetworkType.SINGLE && Bukkit.getPluginManager().getPlugin("SurvivalGames") != null) {
                             plugin.getHubServer().getPlayers().remove(e.getWhoClicked().getUniqueId());
+                            plugin.getHubChatRoom().removeMember(e.getWhoClicked().getUniqueId());
                             ServerSelectEvent serverSelectEvent = new ServerSelectEvent(NexusAPI.getApi().getPlayerManager().getNexusPlayer(e.getWhoClicked().getUniqueId()), server.getName());
                             Bukkit.getServer().getPluginManager().callEvent(serverSelectEvent);
                             if (serverSelectEvent.isCancelled()) {
