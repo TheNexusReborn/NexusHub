@@ -15,6 +15,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.UUID;
+
 @SuppressWarnings("DuplicatedCode")
 public class HubVirtualServer extends VirtualServer {
     private NexusHub plugin;
@@ -37,6 +39,7 @@ public class HubVirtualServer extends VirtualServer {
 
         player.getInventory().clear();
         
+        nexusPlayer.setServer(this);
         nexusPlayer.getScoreboard().setView(new HubScoreboard(nexusPlayer.getScoreboard(), plugin));
 
         if (nexusPlayer.getRank().ordinal() <= Rank.DIAMOND.ordinal()) {
@@ -52,6 +55,11 @@ public class HubVirtualServer extends VirtualServer {
         meta.setDisplayName(ColorHandler.getInstance().color("&e&lGAME SELECTOR &7&o(Right Click)"));
         compass.setItemMeta(meta);
         player.getInventory().setItem(4, compass);
+    }
+    
+    public void teleportToSpawn(UUID uuid) {
+        Player player = Bukkit.getPlayer(uuid);
+        player.teleport(plugin.getSpawn());
     }
 
     @Override
