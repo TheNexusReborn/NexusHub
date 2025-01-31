@@ -5,6 +5,7 @@ import com.thenexusreborn.api.NexusAPI;
 import com.thenexusreborn.api.server.NexusServer;
 import com.thenexusreborn.api.util.NetworkType;
 import com.thenexusreborn.hub.chat.HubChatRoom;
+import com.thenexusreborn.hub.cmds.HubCmd;
 import com.thenexusreborn.hub.cmds.SetSpawnCmd;
 import com.thenexusreborn.hub.cmds.SpawnCmd;
 import com.thenexusreborn.hub.hooks.HubPapiExpansion;
@@ -62,6 +63,7 @@ public class NexusHub extends NexusSpigotPlugin {
         
         getCommand("setspawn").setExecutor(new SetSpawnCmd(this));
         getCommand("spawn").setExecutor(new SpawnCmd(this));
+        getCommand("hub").setExecutor(new HubCmd(this));
         World world = getHubWorld();
         if (this.getConfig().contains("spawn")) {
             int x = Integer.parseInt(this.getConfig().getString("spawn.x"));
