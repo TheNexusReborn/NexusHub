@@ -1,7 +1,7 @@
 package com.thenexusreborn.hub.server;
 
 import com.stardevllc.starchat.rooms.DefaultPermissions;
-import com.stardevllc.starcore.color.ColorHandler;
+import com.stardevllc.colors.StarColors;
 import com.thenexusreborn.api.player.NexusPlayer;
 import com.thenexusreborn.api.player.Rank;
 import com.thenexusreborn.api.server.InstanceServer;
@@ -52,7 +52,7 @@ public class HubVirtualServer extends VirtualServer {
 
         ItemStack compass = new ItemStack(Material.COMPASS);
         ItemMeta meta = compass.getItemMeta();
-        meta.setDisplayName(ColorHandler.getInstance().color("&e&lGAME SELECTOR &7&o(Right Click)"));
+        meta.setDisplayName(StarColors.color("&e&lGAME SELECTOR &7&o(Right Click)"));
         compass.setItemMeta(meta);
         player.getInventory().setItem(4, compass);
     }

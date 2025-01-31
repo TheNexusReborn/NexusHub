@@ -1,6 +1,6 @@
 package com.thenexusreborn.hub.cmds;
 
-import com.stardevllc.starcore.color.ColorHandler;
+import com.stardevllc.colors.StarColors;
 import com.thenexusreborn.api.player.Rank;
 import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.nexuscore.util.MCUtils;
@@ -20,22 +20,22 @@ public class SetSpawnCmd implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         Rank senderRank = MCUtils.getSenderRank(plugin.getNexusCore(), sender);
         if (senderRank.ordinal() > Rank.ADMIN.ordinal()) {
-            sender.sendMessage(ColorHandler.getInstance().color("&cYou do not have permission to use that command."));
+            sender.sendMessage(StarColors.color("&cYou do not have permission to use that command."));
             return true;
         }
         
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(ColorHandler.getInstance().color("&cOnly players can use that command."));
+            sender.sendMessage(StarColors.color("&cOnly players can use that command."));
             return true;
         }
         
         if (!player.getWorld().equals(plugin.getHubWorld())) {
-            ColorHandler.getInstance().coloredMessage(sender, MsgType.WARN + "&cYou are not in the hub world.");
+            StarColors.coloredMessage(sender, MsgType.WARN + "&cYou are not in the hub world.");
             return true;
         }
     
         plugin.setSpawn(player.getLocation());
-        player.sendMessage(ColorHandler.getInstance().color(MsgType.INFO + "You set the spawn to your current location."));
+        player.sendMessage(StarColors.color(MsgType.INFO + "You set the spawn to your current location."));
         return true;
     }
 }
