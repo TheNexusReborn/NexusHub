@@ -18,7 +18,7 @@ public class SetSpawnCmd implements CommandExecutor {
     
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        Rank senderRank = MCUtils.getSenderRank(plugin.getNexusCore(), sender);
+        Rank senderRank = MCUtils.getSenderRank(sender);
         if (senderRank.ordinal() > Rank.ADMIN.ordinal()) {
             sender.sendMessage(StarColors.color("&cYou do not have permission to use that command."));
             return true;
