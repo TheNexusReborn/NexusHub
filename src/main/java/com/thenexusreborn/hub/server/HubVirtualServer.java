@@ -64,8 +64,17 @@ public class HubVirtualServer extends VirtualServer {
 
     @Override
     public void quit(NexusPlayer nexusPlayer) {
-        this.players.remove(nexusPlayer.getUniqueId());
-        plugin.getHubChatRoom().removeMember(nexusPlayer.getUniqueId());
+        if (nexusPlayer == null) {
+            return;
+        }
+        
+        quit(nexusPlayer.getUniqueId());
+    }
+    
+    @Override
+    public void quit(UUID uuid) {
+        this.players.remove(uuid);
+        plugin.getHubChatRoom().removeMember(uuid);
     }
 
     @Override
