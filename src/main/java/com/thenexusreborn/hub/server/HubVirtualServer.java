@@ -38,6 +38,7 @@ public class HubVirtualServer extends VirtualServer {
         player.setGameMode(GameMode.ADVENTURE);
 
         player.getInventory().clear();
+        player.getInventory().setArmorContents(null);
         
         nexusPlayer.setServer(this);
         nexusPlayer.getScoreboard().setView(new HubScoreboard(nexusPlayer.getScoreboard(), plugin));
