@@ -37,7 +37,7 @@ dependencies {
 }
 
 group = 'com.thenexusreborn'
-version = '1.7.1-ALPHA'
+version = '1.7.2-ALPHA'
 description = 'NexusHub'
 
 jar {
