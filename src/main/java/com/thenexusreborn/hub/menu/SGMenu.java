@@ -1,13 +1,12 @@
 package com.thenexusreborn.hub.menu;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.stardevllc.itembuilder.ItemBuilder;
 import com.stardevllc.itembuilder.XMaterial;
 import com.stardevllc.starui.element.button.Button;
 import com.stardevllc.starui.gui.InventoryGUI;
+import com.stardevllc.starui.gui.UpdatingGUI;
 import com.stardevllc.time.TimeFormat;
 import com.thenexusreborn.api.NexusAPI;
 import com.thenexusreborn.api.server.NexusServer;
@@ -20,14 +19,21 @@ import org.bukkit.Bukkit;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.UUID;
 
-public class SGMenu extends InventoryGUI {
+public class SGMenu extends InventoryGUI implements UpdatingGUI {
 
-    private static final Gson GSON = new GsonBuilder().create();
+//    private static final Gson GSON = new GsonBuilder().create();
+        
+    private NexusHub plugin;
+    
+    public SGMenu(NexusHub plugin, UUID player) {
+        super(1, "&6&lSurvival Games", player);
+        this.plugin = plugin;
+    }
 
-    public SGMenu(NexusHub plugin) {
-        super(1, "&6&lSurvival Games");
-
+    @Override
+    public void createItems() {
         Map<String, NexusServer> sgServers = new TreeMap<>();
 
         for (NexusServer server : NexusAPI.getApi().getServerRegistry()) {
@@ -77,20 +83,20 @@ public class SGMenu extends InventoryGUI {
                     } else {
                         itemBuilder.material(XMaterial.DIAMOND_BLOCK);
                         itemBuilder.displayName("&b" + server.getName());
-                        
+
                         JsonObject timeObject = stateObject.getAsJsonObject("time");
                         JsonObject playersObject = stateObject.getAsJsonObject("players");
-                        
+
                         if (state.startsWith("warmup")) {
-                            itemBuilder.setLore(List.of("&e&lWARMUP", 
+                            itemBuilder.setLore(List.of("&e&lWARMUP",
                                     "&eTime: " + timeObject.get("main").getAsInt() + "s",
                                     "&d" + (playersObject.get("tributes").getAsInt() + playersObject.get("spectators").getAsInt()) + "&e/&5" + server.getMaxPlayers()));
                         } else if (state.startsWith("ingame")) {
-                            itemBuilder.setLore(List.of("&a&lINGAME", 
-                                    "&aTributes: &f" + playersObject.get("tributes").getAsInt(), 
-                                    "&cSpectators: &f" + playersObject.get("spectators").getAsInt(), 
-                                    "&dMutations: &f" + playersObject.get("mutations").getAsInt(), 
-                                    "", 
+                            itemBuilder.setLore(List.of("&a&lINGAME",
+                                    "&aTributes: &f" + playersObject.get("tributes").getAsInt(),
+                                    "&cSpectators: &f" + playersObject.get("spectators").getAsInt(),
+                                    "&dMutations: &f" + playersObject.get("mutations").getAsInt(),
+                                    "",
                                     "&3Time: &f" + new TimeFormat("%00m%%00s%").format(timeObject.get("main").getAsLong())));
                         } else if (state.contains("deathmatch")) {
                             itemBuilder.setLore(List.of("&c&lDEATHMATCH",

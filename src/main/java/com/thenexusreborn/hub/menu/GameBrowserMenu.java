@@ -16,7 +16,7 @@ public class GameBrowserMenu extends InventoryGUI {
         GuiManager manager = plugin.getServer().getServicesManager().getRegistration(GuiManager.class).getProvider();
         Button sgButton = new Button().clickSound(Sound.CLICK, 1L)
                 .iconCreator(player -> ItemBuilder.of(XMaterial.DIAMOND_SWORD).displayName("&6Survival Games").build())
-                .consumer(e -> Bukkit.getScheduler().runTaskLater(plugin, () -> manager.openGUI(new SGMenu(plugin), (Player) e.getWhoClicked()), 1L));
+                .consumer(e -> Bukkit.getScheduler().runTaskLater(plugin, () -> manager.openGUI(new SGMenu(plugin, e.getWhoClicked().getUniqueId()), (Player) e.getWhoClicked()), 1L));
         setElement(0, 4, sgButton);
     }
 }
