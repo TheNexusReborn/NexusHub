@@ -56,6 +56,7 @@ public class HubVirtualServer extends VirtualServer {
         meta.setDisplayName(StarColors.color("&e&lGAME SELECTOR &7&o(Right Click)"));
         compass.setItemMeta(meta);
         player.getInventory().setItem(4, compass);
+        player.getInventory().setHeldItemSlot(4);
     }
     
     public void teleportToSpawn(UUID uuid) {
