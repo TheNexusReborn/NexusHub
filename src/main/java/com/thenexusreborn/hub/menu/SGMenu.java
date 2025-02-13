@@ -114,13 +114,13 @@ public class SGMenu extends InventoryGUI implements UpdatingGUI {
             Button button = new Button().iconCreator(player -> itemBuilder.build())
                     .consumer(e -> {
                         if (NexusAPI.NETWORK_TYPE == NetworkType.SINGLE && Bukkit.getPluginManager().getPlugin("SurvivalGames") != null) {
-                            plugin.getHubServer().getPlayers().remove(e.getWhoClicked().getUniqueId());
+                            plugin.getHubServer().quit(e.getWhoClicked().getUniqueId());
                             plugin.getHubChatRoom().removeMember(e.getWhoClicked().getUniqueId());
                             ServerSelectEvent serverSelectEvent = new ServerSelectEvent(NexusAPI.getApi().getPlayerManager().getNexusPlayer(e.getWhoClicked().getUniqueId()), server.getName());
                             Bukkit.getServer().getPluginManager().callEvent(serverSelectEvent);
                             if (serverSelectEvent.isCancelled()) {
                                 e.getWhoClicked().sendMessage(MsgType.ERROR.format(serverSelectEvent.getErrorMessage()));
-                                plugin.getHubServer().getPlayers().add(e.getWhoClicked().getUniqueId());
+                                plugin.getHubServer().join(e.getWhoClicked().getUniqueId());
                             }
                         }
                     });
