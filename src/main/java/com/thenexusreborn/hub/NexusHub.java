@@ -4,6 +4,7 @@ import com.stardevllc.itembuilder.ItemBuilder;
 import com.stardevllc.itembuilder.XMaterial;
 import com.stardevllc.starchat.rooms.ChatRoom;
 import com.stardevllc.staritems.model.CustomItem;
+import com.stardevllc.staritems.model.ItemRegistry;
 import com.stardevllc.staritems.model.types.PlayerEvent;
 import com.stardevllc.starui.GuiManager;
 import com.thenexusreborn.api.NexusAPI;
@@ -105,6 +106,9 @@ public class NexusHub extends NexusSpigotPlugin {
             GuiManager manager = getServer().getServicesManager().getRegistration(GuiManager.class).getProvider();
             manager.openGUI(new GameBrowserMenu(this), e.getPlayer());
         });
+
+        ItemRegistry itemRegistry = Bukkit.getServicesManager().getRegistration(ItemRegistry.class).getProvider();
+        itemRegistry.register(gameBrowserItem);
     }
 
     public CustomItem getGameBrowserItem() {
