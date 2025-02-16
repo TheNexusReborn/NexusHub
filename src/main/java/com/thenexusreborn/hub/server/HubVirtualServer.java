@@ -1,7 +1,6 @@
 package com.thenexusreborn.hub.server;
 
 import com.stardevllc.starchat.rooms.DefaultPermissions;
-import com.stardevllc.colors.StarColors;
 import com.thenexusreborn.api.player.NexusPlayer;
 import com.thenexusreborn.api.player.Rank;
 import com.thenexusreborn.api.server.InstanceServer;
@@ -10,10 +9,8 @@ import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.hub.scoreboard.HubScoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.UUID;
 
@@ -51,11 +48,9 @@ public class HubVirtualServer extends VirtualServer {
         plugin.getHubChatRoom().addMember(player.getUniqueId(), DefaultPermissions.VIEW_MESSAGES, DefaultPermissions.SEND_MESSAGES);
         plugin.getNexusCore().getStarChatPlugin().setPlayerFocus(player, plugin.getHubChatRoom());
 
-        ItemStack compass = new ItemStack(Material.COMPASS);
-        ItemMeta meta = compass.getItemMeta();
-        meta.setDisplayName(StarColors.color("&e&lGAME SELECTOR &7&o(Right Click)"));
-        compass.setItemMeta(meta);
+        ItemStack compass = plugin.getGameBrowserItem().toItemStack();
         player.getInventory().setItem(4, compass);
+        player.getInventory().setHeldItemSlot(4);
     }
     
     public void teleportToSpawn(UUID uuid) {

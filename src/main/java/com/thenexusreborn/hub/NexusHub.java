@@ -1,6 +1,12 @@
 package com.thenexusreborn.hub;
 
+import com.stardevllc.itembuilder.ItemBuilder;
+import com.stardevllc.itembuilder.XMaterial;
 import com.stardevllc.starchat.rooms.ChatRoom;
+import com.stardevllc.staritems.model.CustomItem;
+import com.stardevllc.staritems.model.ItemRegistry;
+import com.stardevllc.staritems.model.types.PlayerEvent;
+import com.stardevllc.starui.GuiManager;
 import com.thenexusreborn.api.NexusAPI;
 import com.thenexusreborn.api.server.NexusServer;
 import com.thenexusreborn.api.util.NetworkType;
@@ -11,6 +17,7 @@ import com.thenexusreborn.hub.cmds.SpawnCmd;
 import com.thenexusreborn.hub.hooks.HubPapiExpansion;
 import com.thenexusreborn.hub.listener.PlayerListener;
 import com.thenexusreborn.hub.listener.ServerListener;
+import com.thenexusreborn.hub.menu.GameBrowserMenu;
 import com.thenexusreborn.hub.thread.PlayerAndEntityThread;
 import com.thenexusreborn.hub.thread.WorldThread;
 import com.thenexusreborn.nexuscore.NexusCore;
@@ -20,6 +27,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 
 public class NexusHub extends NexusSpigotPlugin {
 
@@ -31,6 +40,8 @@ public class NexusHub extends NexusSpigotPlugin {
     private ChatRoom hubChatRoom;
     
     private NexusServer hubServer;
+    
+    private CustomItem gameBrowserItem;
 
     @Override
     public void onEnable() {
@@ -80,6 +91,28 @@ public class NexusHub extends NexusSpigotPlugin {
 
         new PlayerAndEntityThread(this).start();
         new WorldThread(this).start();
+
+        this.gameBrowserItem = new CustomItem(this, "gamebrowser", ItemBuilder.of(XMaterial.COMPASS).displayName("&e&lGAME SELECTOR &7&o(Right Click)"));
+        this.gameBrowserItem.addEventHandler(PlayerEvent.INTERACT, e -> {
+            Player player = e.getPlayer();
+            if (!player.getWorld().equals(getHubWorld())) {
+                return;
+            }
+            
+            if (!(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)) {
+                return;
+            }
+            
+            GuiManager manager = getServer().getServicesManager().getRegistration(GuiManager.class).getProvider();
+            manager.openGUI(new GameBrowserMenu(this), e.getPlayer());
+        });
+
+        ItemRegistry itemRegistry = Bukkit.getServicesManager().getRegistration(ItemRegistry.class).getProvider();
+        itemRegistry.register(gameBrowserItem);
+    }
+
+    public CustomItem getGameBrowserItem() {
+        return gameBrowserItem;
     }
 
     public World getHubWorld() {
