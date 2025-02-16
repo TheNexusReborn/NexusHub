@@ -70,6 +70,10 @@ public class SGMenu extends InventoryGUI implements UpdatingGUI {
                         itemBuilder.setLore(List.of("&eMap: &b" + map,
                                 "&eTime: &a" + stateObject.get("time").getAsInt() + "s",
                                 "&d" + playersObject.get("playing").getAsInt() + "&e/&5" + server.getMaxPlayers()));
+                    } else if (state.equalsIgnoreCase("MAP_EDITING")) {
+                        itemBuilder.material(XMaterial.MAP);
+                        itemBuilder.displayName("&d" + server.getName());
+                        itemBuilder.addLoreLine("&7Maps are being edited.");
                     }
                 } else if (type.equalsIgnoreCase("game")) {
                     if (List.of("undefined", "error", "shutting_down").contains(state)) {
