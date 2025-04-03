@@ -1,14 +1,12 @@
 package com.thenexusreborn.hub.cmds;
 
-import com.stardevllc.colors.StarColors;
+import com.stardevllc.starcore.StarColors;
 import com.thenexusreborn.api.NexusAPI;
 import com.thenexusreborn.api.player.NexusPlayer;
 import com.thenexusreborn.api.server.VirtualServer;
 import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.nexuscore.util.MsgType;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
+import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
 public class HubCmd implements CommandExecutor {
