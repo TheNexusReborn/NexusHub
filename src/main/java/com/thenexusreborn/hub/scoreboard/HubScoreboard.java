@@ -27,7 +27,7 @@ public class HubScoreboard extends SpigotScoreboardView {
     public void registerTeams() {
         createTeam(new TeamBuilder("rankLabel").entry("&6&lRANK:").score(15));
         createTeam(new TeamBuilder("rankValue").entry(ChatColor.GREEN.toString()).score(14).valueUpdater((player, team) -> {
-            Rank rank = player.getRank();
+            Rank rank = player.getEffectiveRank();
             team.setPrefix(rank.getColor() + rank.name());
         }));
         createTeam(new TeamBuilder("blank1").entry(ChatColor.GOLD.toString()).score(13));
