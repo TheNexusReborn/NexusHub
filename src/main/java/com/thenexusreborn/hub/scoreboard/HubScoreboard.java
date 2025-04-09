@@ -1,8 +1,7 @@
 package com.thenexusreborn.hub.scoreboard;
 
 import com.stardevllc.starcore.StarColors;
-import com.thenexusreborn.api.NexusAPI;
-import com.thenexusreborn.api.player.*;
+import com.thenexusreborn.api.player.Rank;
 import com.thenexusreborn.api.scoreboard.NexusScoreboard;
 import com.thenexusreborn.api.scoreboard.TeamBuilder;
 import com.thenexusreborn.hub.NexusHub;
@@ -38,6 +37,8 @@ public class HubScoreboard extends SpigotScoreboardView {
         createTeam(new TeamBuilder("playersLabel").entry("&6&lPLAYERS").score(8));
         createTeam(new TeamBuilder("playersValue").entry(ChatColor.YELLOW.toString()).score(7).valueUpdater((player, team) -> {
             int onlinePlayers = 0;
+            
+            Player bukkitPlayer = Bukkit.getPlayer(player.getUniqueId());
 
             for (UUID uuid : plugin.getHubServer().getPlayers()) {
                 Player onlinePlayer = Bukkit.getPlayer(uuid);
@@ -48,20 +49,8 @@ public class HubScoreboard extends SpigotScoreboardView {
                     onlinePlayers++;
                     continue;
                 }
-                NexusPlayer onp = NexusAPI.getApi().getPlayerManager().getNexusPlayer(onlinePlayer.getUniqueId());
-                if (onp == null) continue;
-
-                Toggle vanish = onp.getToggle("vanish");
-                Toggle incognito = onp.getToggle("incognito");
-                if (incognito != null && incognito.getValue()) {
-                    if (player.getRank().ordinal() <= incognito.getInfo().getMinRank().ordinal()) {
-                        onlinePlayers++;
-                    }
-                } else if (vanish != null && vanish.getValue()) {
-                    if (player.getRank().ordinal() <= vanish.getInfo().getMinRank().ordinal()) {
-                        onlinePlayers++;
-                    }
-                } else {
+                
+                if (bukkitPlayer.canSee(onlinePlayer)) {
                     onlinePlayers++;
                 }
             }
