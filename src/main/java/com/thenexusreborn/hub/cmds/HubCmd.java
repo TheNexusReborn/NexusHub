@@ -1,7 +1,7 @@
 package com.thenexusreborn.hub.cmds;
 
 import com.stardevllc.starcore.StarColors;
-import com.thenexusreborn.api.NexusAPI;
+import com.thenexusreborn.api.NexusReborn;
 import com.thenexusreborn.api.player.NexusPlayer;
 import com.thenexusreborn.api.server.VirtualServer;
 import com.thenexusreborn.hub.NexusHub;
@@ -22,9 +22,9 @@ public class HubCmd implements CommandExecutor {
             return true;
         }
 
-        NexusPlayer nexusPlayer = NexusAPI.getApi().getPlayerManager().getNexusPlayer(player.getUniqueId());
+        NexusPlayer nexusPlayer = NexusReborn.getPlayerManager().getNexusPlayer(player.getUniqueId());
         
-        NexusAPI.getApi().getServerRegistry().forEach(server -> {
+        NexusReborn.getServerRegistry().forEach(server -> {
             if (server instanceof VirtualServer virtualServer) {
                 virtualServer.quit(nexusPlayer);
             }

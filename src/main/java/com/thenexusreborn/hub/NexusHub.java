@@ -7,7 +7,7 @@ import com.stardevllc.staritems.model.CustomItem;
 import com.stardevllc.staritems.model.ItemRegistry;
 import com.stardevllc.staritems.model.types.PlayerEvent;
 import com.stardevllc.starui.GuiManager;
-import com.thenexusreborn.api.NexusAPI;
+import com.thenexusreborn.api.NexusReborn;
 import com.thenexusreborn.api.server.NexusServer;
 import com.thenexusreborn.api.util.NetworkType;
 import com.thenexusreborn.hub.chat.HubChatRoom;
@@ -48,7 +48,7 @@ public class NexusHub extends NexusSpigotPlugin {
             return;
         }
 
-        if (NexusAPI.NETWORK_TYPE == NetworkType.SINGLE) {
+        if (NexusReborn.NETWORK_TYPE == NetworkType.SINGLE) {
             this.hubWorldName = getConfig().getString("worldname");
             if (this.hubWorldName == null || this.hubWorldName.isEmpty()) {
                 getLogger().severe("NexusAPI is configured to be a single server, but no world name is set for the hub world.");
@@ -112,7 +112,7 @@ public class NexusHub extends NexusSpigotPlugin {
 
     public World getHubWorld() {
         if (this.hubWorld == null) {
-            if (NexusAPI.NETWORK_TYPE == NetworkType.SINGLE) {
+            if (NexusReborn.NETWORK_TYPE == NetworkType.SINGLE) {
                 this.hubWorld = Bukkit.getWorld(this.hubWorldName);
             } else {
                 this.hubWorld = Bukkit.getWorld(ServerProperties.getLevelName());
