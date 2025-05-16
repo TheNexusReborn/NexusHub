@@ -31,10 +31,10 @@ dependencies {
     compileOnly 'com.thenexusreborn:NexusAPI:1.16.2-ALPHA'
     compileOnly 'me.clip:placeholderapi:2.11.5'
     compileOnly 'com.thenexusreborn:NexusCore:1.15.3-ALPHA'
-    compileOnly 'com.github.StarDevelopmentLLC:StarCore:0.2.2'
+    compileOnly 'com.github.StarDevelopmentLLC:StarCore:0.3.1'
     compileOnly 'com.github.StarDevelopmentLLC:StarChat:0.2.2'
-    compileOnly 'com.github.StarDevelopmentLLC:StarItems:0.1.4'
-    compileOnly 'com.github.StarDevelopmentLLC:StarUI:0.1.3'
+    compileOnly 'com.github.StarDevelopmentLLC:StarItems:0.1.5'
+    compileOnly 'com.github.StarDevelopmentLLC:StarUI:0.1.4'
 }
 
 group = 'com.thenexusreborn'
