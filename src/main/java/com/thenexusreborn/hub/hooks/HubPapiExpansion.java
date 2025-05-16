@@ -1,6 +1,6 @@
 package com.thenexusreborn.hub.hooks;
 
-import com.thenexusreborn.api.NexusAPI;
+import com.thenexusreborn.api.NexusReborn;
 import com.thenexusreborn.api.player.NexusPlayer;
 import com.thenexusreborn.api.player.Rank;
 import com.thenexusreborn.hub.NexusHub;
@@ -18,11 +18,11 @@ public class HubPapiExpansion extends PlaceholderExpansion {
 
     @Override
     public String onPlaceholderRequest(Player player,  String params) {
-        NexusPlayer nexusPlayer = NexusAPI.getApi().getPlayerManager().getNexusPlayer(player.getUniqueId());
+        NexusPlayer nexusPlayer = NexusReborn.getPlayerManager().getNexusPlayer(player.getUniqueId());
         if (params.equalsIgnoreCase("players")) {
             int onlinePlayers = 0;
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                NexusPlayer onp = NexusAPI.getApi().getPlayerManager().getNexusPlayer(onlinePlayer.getUniqueId());
+                NexusPlayer onp = NexusReborn.getPlayerManager().getNexusPlayer(onlinePlayer.getUniqueId());
                 if (onp == null) continue;
                 if (onp.getToggleValue("incognito") || onp.getToggleValue("vanish")) {
                     if (nexusPlayer.getRank().ordinal() <= Rank.HELPER.ordinal()) {

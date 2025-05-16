@@ -8,7 +8,7 @@ import com.stardevllc.starui.element.button.Button;
 import com.stardevllc.starui.gui.InventoryGUI;
 import com.stardevllc.starui.gui.UpdatingGUI;
 import com.stardevllc.time.TimeFormat;
-import com.thenexusreborn.api.NexusAPI;
+import com.thenexusreborn.api.NexusReborn;
 import com.thenexusreborn.api.server.NexusServer;
 import com.thenexusreborn.api.util.NetworkType;
 import com.thenexusreborn.hub.NexusHub;
@@ -33,7 +33,7 @@ public class SGMenu extends InventoryGUI implements UpdatingGUI {
     public void createItems() {
         Map<String, NexusServer> sgServers = new TreeMap<>();
 
-        for (NexusServer server : NexusAPI.getApi().getServerRegistry()) {
+        for (NexusServer server : NexusReborn.getServerRegistry()) {
             if (server.getMode().equalsIgnoreCase("survivalgames")) {
                 sgServers.put(server.getName(), server);
             }
@@ -114,10 +114,10 @@ public class SGMenu extends InventoryGUI implements UpdatingGUI {
 
             Button button = new Button().iconCreator(player -> itemBuilder.build())
                     .consumer(e -> {
-                        if (NexusAPI.NETWORK_TYPE == NetworkType.SINGLE && Bukkit.getPluginManager().getPlugin("SurvivalGames") != null) {
+                        if (NexusReborn.NETWORK_TYPE == NetworkType.SINGLE && Bukkit.getPluginManager().getPlugin("SurvivalGames") != null) {
                             plugin.getHubServer().quit(e.getWhoClicked().getUniqueId());
                             plugin.getHubChatRoom().removeMember(e.getWhoClicked().getUniqueId());
-                            ServerSelectEvent serverSelectEvent = new ServerSelectEvent(NexusAPI.getApi().getPlayerManager().getNexusPlayer(e.getWhoClicked().getUniqueId()), server.getName());
+                            ServerSelectEvent serverSelectEvent = new ServerSelectEvent(NexusReborn.getPlayerManager().getNexusPlayer(e.getWhoClicked().getUniqueId()), server.getName());
                             Bukkit.getServer().getPluginManager().callEvent(serverSelectEvent);
                             if (serverSelectEvent.isCancelled()) {
                                 e.getWhoClicked().sendMessage(MsgType.ERROR.format(serverSelectEvent.getErrorMessage()));
