@@ -30,8 +30,8 @@ dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
     compileOnly 'me.clip:placeholderapi:2.11.5'
     compileOnly 'com.thenexusreborn:NexusCore:0.1.0'
-    compileOnly 'com.github.StarDevelopmentLLC:StarCore:0.3.1'
-    compileOnly 'com.github.StarDevelopmentLLC:StarChat:0.2.2'
+    compileOnly 'com.github.StarDevelopmentLLC:StarCore:0.4.1'
+    compileOnly 'com.github.StarDevelopmentLLC:StarChat:0.2.4'
     compileOnly 'com.github.StarDevelopmentLLC:StarItems:0.1.5'
     compileOnly 'com.github.StarDevelopmentLLC:StarUI:0.1.4'
 }
