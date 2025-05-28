@@ -117,7 +117,7 @@ public class SGMenu extends InventoryGUI implements UpdatingGUI {
                         if (NexusReborn.NETWORK_TYPE == NetworkType.SINGLE && Bukkit.getPluginManager().getPlugin("SurvivalGames") != null) {
                             plugin.getHubServer().quit(e.getWhoClicked().getUniqueId());
                             plugin.getHubChatRoom().removeMember(e.getWhoClicked().getUniqueId());
-                            ServerSelectEvent serverSelectEvent = new ServerSelectEvent(NexusReborn.getPlayerManager().getNexusPlayer(e.getWhoClicked().getUniqueId()), server.getName());
+                            ServerSelectEvent serverSelectEvent = new ServerSelectEvent(e.getWhoClicked().getUniqueId(), NexusReborn.getPlayerManager().getNexusPlayer(e.getWhoClicked().getUniqueId()), server.getName());
                             Bukkit.getServer().getPluginManager().callEvent(serverSelectEvent);
                             if (serverSelectEvent.isCancelled()) {
                                 e.getWhoClicked().sendMessage(MsgType.ERROR.format(serverSelectEvent.getErrorMessage()));
