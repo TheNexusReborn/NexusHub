@@ -3,6 +3,7 @@ package com.thenexusreborn.hub.server;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.stardevllc.starchat.rooms.DefaultPermissions;
+import com.thenexusreborn.api.NexusReborn;
 import com.thenexusreborn.api.player.NexusPlayer;
 import com.thenexusreborn.api.player.Rank;
 import com.thenexusreborn.api.server.InstanceServer;
@@ -39,10 +40,13 @@ public class HubVirtualServer extends VirtualServer {
         JsonArray playersArray = new JsonArray();
         for (UUID uuid : getPlayers()) {
             Player player = Bukkit.getPlayer(uuid);
-            JsonObject playerObject = new JsonObject();
-            playerObject.addProperty("uuid", uuid.toString());
-            playerObject.addProperty("name", player.getName());
-            playersArray.add(playerObject);
+            NexusPlayer nexusPlayer = NexusReborn.getPlayerManager().getNexusPlayer(uuid);
+            if (nexusPlayer != null && !nexusPlayer.getToggleValue("vanish") && !nexusPlayer.getToggleValue("incognito")) {
+                JsonObject playerObject = new JsonObject();
+                playerObject.addProperty("uuid", uuid.toString());
+                playerObject.addProperty("name", player.getName());
+                playersArray.add(playerObject);
+            }
         }
         
         json.add("players", playersArray);
