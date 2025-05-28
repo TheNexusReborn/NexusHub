@@ -63,7 +63,7 @@ public class SGMenu extends InventoryGUI implements UpdatingGUI {
                     } else if (List.of("waiting", "countdown").contains(state)) {
                         itemBuilder.material(XMaterial.EMERALD_BLOCK);
                         itemBuilder.displayName("&a" + server.getName());
-                        JsonObject playersObject = stateObject.getAsJsonObject("players");
+                        JsonObject playersObject = stateObject.getAsJsonObject("playerCounts");
                         itemBuilder.setLore(List.of("&eMap: &b" + map,
                                 "&eTime: &a" + stateObject.get("time").getAsInt() + "s",
                                 "&d" + playersObject.get("playing").getAsInt() + "&e/&5" + server.getMaxPlayers()));
@@ -86,7 +86,7 @@ public class SGMenu extends InventoryGUI implements UpdatingGUI {
                         itemBuilder.displayName("&b" + server.getName());
 
                         JsonObject timeObject = stateObject.getAsJsonObject("time");
-                        JsonObject playersObject = stateObject.getAsJsonObject("players");
+                        JsonObject playersObject = stateObject.getAsJsonObject("teamCounts");
 
                         if (state.startsWith("warmup")) {
                             itemBuilder.setLore(List.of("&e&lWARMUP",
