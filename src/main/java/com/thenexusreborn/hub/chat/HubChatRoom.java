@@ -1,7 +1,7 @@
 package com.thenexusreborn.hub.chat;
 
 import com.stardevllc.starchat.rooms.ChatRoom;
-import com.stardevllc.starcore.actors.Actor;
+import com.stardevllc.starcore.api.actors.Actor;
 import com.thenexusreborn.hub.NexusHub;
 
 public class HubChatRoom extends ChatRoom {

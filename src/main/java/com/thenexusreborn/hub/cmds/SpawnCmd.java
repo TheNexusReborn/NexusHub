@@ -1,6 +1,6 @@
 package com.thenexusreborn.hub.cmds;
 
-import com.stardevllc.starcore.StarColors;
+import com.stardevllc.starcore.api.StarColors;
 import com.thenexusreborn.hub.NexusHub;
 import com.thenexusreborn.nexuscore.util.MsgType;
 import org.bukkit.command.*;

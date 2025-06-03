@@ -1,6 +1,6 @@
 package com.thenexusreborn.hub.scoreboard;
 
-import com.stardevllc.starcore.StarColors;
+import com.stardevllc.starcore.api.StarColors;
 import com.thenexusreborn.api.player.Rank;
 import com.thenexusreborn.api.scoreboard.NexusScoreboard;
 import com.thenexusreborn.api.scoreboard.TeamBuilder;
