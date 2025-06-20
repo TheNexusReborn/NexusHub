@@ -13,7 +13,7 @@ public class GameBrowserMenu extends InventoryGUI {
     public GameBrowserMenu(NexusHub plugin) {
         super(1, "&d&lThe Nexus &r- Where to?");
         GuiManager manager = plugin.getServer().getServicesManager().getRegistration(GuiManager.class).getProvider();
-        Button sgButton = new Button().clickSound(Sound.CLICK, 1L)
+        Button sgButton = new Button().clickSound(Sound.UI_BUTTON_CLICK, 1L)
                 .iconCreator(player -> ItemBuilder.of(XMaterial.DIAMOND_SWORD).displayName("&6Survival Games").build())
                 .consumer(e -> Bukkit.getScheduler().runTaskLater(plugin, () -> manager.openGUI(new SGMenu(plugin, e.getWhoClicked().getUniqueId()), e.getWhoClicked()), 1L));
         setElement(0, 4, sgButton);

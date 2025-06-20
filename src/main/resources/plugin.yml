@@ -1,7 +1,8 @@
 name: NexusHub
 version: ${version}
+api-version: 1.21
 main: com.thenexusreborn.hub.NexusHub
-depend: [NexusCore]
+depend: [NexusCore, StarItems]
 description: The Hub plugin for The Nexus Reborn
 author: Firestar311
 commands:
