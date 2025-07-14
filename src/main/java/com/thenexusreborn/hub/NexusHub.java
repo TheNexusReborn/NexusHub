@@ -1,11 +1,11 @@
 package com.thenexusreborn.hub;
 
 import com.stardevllc.starchat.rooms.ChatRoom;
-import com.stardevllc.starcore.api.XMaterial;
 import com.stardevllc.starcore.api.itembuilder.ItemBuilder;
 import com.stardevllc.staritems.model.CustomItem;
 import com.stardevllc.staritems.model.ItemRegistry;
 import com.stardevllc.staritems.model.types.PlayerEvent;
+import com.stardevllc.starmclib.XMaterial;
 import com.stardevllc.starui.GuiManager;
 import com.thenexusreborn.api.NexusReborn;
 import com.thenexusreborn.api.server.NexusServer;

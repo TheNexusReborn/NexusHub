@@ -2,8 +2,8 @@ package com.thenexusreborn.hub.menu;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.stardevllc.starcore.api.XMaterial;
 import com.stardevllc.starcore.api.itembuilder.ItemBuilder;
+import com.stardevllc.starmclib.XMaterial;
 import com.stardevllc.starui.element.button.Button;
 import com.stardevllc.starui.gui.InventoryGUI;
 import com.stardevllc.starui.gui.UpdatingGUI;
