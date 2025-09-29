@@ -1,12 +1,12 @@
 package com.thenexusreborn.hub;
 
 import com.stardevllc.starchat.rooms.ChatRoom;
-import com.stardevllc.starcore.api.itembuilder.ItemBuilder;
+import com.stardevllc.starcore.api.itembuilder.ItemBuilders;
+import com.stardevllc.starcore.api.ui.GuiManager;
 import com.stardevllc.staritems.model.CustomItem;
 import com.stardevllc.staritems.model.ItemRegistry;
 import com.stardevllc.staritems.model.types.PlayerEvent;
 import com.stardevllc.starmclib.XMaterial;
-import com.stardevllc.starui.GuiManager;
 import com.thenexusreborn.api.NexusReborn;
 import com.thenexusreborn.api.server.NexusServer;
 import com.thenexusreborn.api.util.NetworkType;
@@ -87,7 +87,7 @@ public class NexusHub extends NexusSpigotPlugin {
         new PlayerAndEntityThread(this).start();
         new WorldThread(this).start();
 
-        this.gameBrowserItem = new CustomItem(this, "gamebrowser", ItemBuilder.of(XMaterial.COMPASS).displayName("&e&lGAME SELECTOR &7&o(Right Click)"));
+        this.gameBrowserItem = new CustomItem(this, "gamebrowser", ItemBuilders.of(XMaterial.COMPASS).displayName("&e&lGAME SELECTOR &7&o(Right Click)"));
         this.gameBrowserItem.addEventHandler(PlayerEvent.INTERACT, e -> {
             Player player = e.getPlayer();
             if (!player.getWorld().equals(getHubWorld())) {
