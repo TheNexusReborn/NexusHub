@@ -1,12 +1,11 @@
 package com.thenexusreborn.hub;
 
+import com.stardevllc.itembuilder.ItemBuilders;
+import com.stardevllc.smaterial.SMaterial;
 import com.stardevllc.starchat.rooms.ChatRoom;
-import com.stardevllc.starcore.api.itembuilder.ItemBuilders;
 import com.stardevllc.starcore.api.ui.GuiManager;
 import com.stardevllc.staritems.model.CustomItem;
 import com.stardevllc.staritems.model.ItemRegistry;
-import com.stardevllc.staritems.model.types.PlayerEvent;
-import com.stardevllc.starmclib.XMaterial;
 import com.thenexusreborn.api.NexusReborn;
 import com.thenexusreborn.api.server.NexusServer;
 import com.thenexusreborn.api.util.NetworkType;
@@ -24,6 +23,7 @@ import com.thenexusreborn.nexuscore.util.ServerProperties;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 public class NexusHub extends NexusSpigotPlugin {
 
@@ -87,8 +87,9 @@ public class NexusHub extends NexusSpigotPlugin {
         new PlayerAndEntityThread(this).start();
         new WorldThread(this).start();
 
-        this.gameBrowserItem = new CustomItem(this, "gamebrowser", ItemBuilders.of(XMaterial.COMPASS).displayName("&e&lGAME SELECTOR &7&o(Right Click)"));
-        this.gameBrowserItem.addEventHandler(PlayerEvent.INTERACT, e -> {
+        this.gameBrowserItem = new CustomItem(this, "gamebrowser", ItemBuilders.of(SMaterial.COMPASS).displayName("&e&lGAME SELECTOR &7&o(Right Click)"));
+        
+        this.gameBrowserItem.addEventHandler(PlayerInteractEvent.class, e -> {
             Player player = e.getPlayer();
             if (!player.getWorld().equals(getHubWorld())) {
                 return;
@@ -101,7 +102,7 @@ public class NexusHub extends NexusSpigotPlugin {
             GuiManager manager = getServer().getServicesManager().getRegistration(GuiManager.class).getProvider();
             manager.openGUI(new GameBrowserMenu(this), e.getPlayer());
         });
-
+        
         ItemRegistry itemRegistry = Bukkit.getServicesManager().getRegistration(ItemRegistry.class).getProvider();
         itemRegistry.register(gameBrowserItem);
     }

@@ -1,12 +1,12 @@
 package com.thenexusreborn.hub.menu;
 
-import com.stardevllc.starcore.api.itembuilder.ItemBuilders;
+import com.stardevllc.itembuilder.ItemBuilders;
+import com.stardevllc.smaterial.SMaterial;
 import com.stardevllc.starcore.api.ui.GuiManager;
 import com.stardevllc.starcore.api.ui.element.Element;
 import com.stardevllc.starcore.api.ui.element.button.Button;
 import com.stardevllc.starcore.api.ui.gui.InventoryGUI;
 import com.stardevllc.starcore.api.ui.gui.UpdatingGUI;
-import com.stardevllc.starmclib.XMaterial;
 import com.thenexusreborn.api.NexusReborn;
 import com.thenexusreborn.api.server.NexusServer;
 import com.thenexusreborn.hub.NexusHub;
@@ -33,7 +33,7 @@ public class SGMenu extends InventoryGUI implements UpdatingGUI {
         
         GuiManager manager = plugin.getServer().getServicesManager().getRegistration(GuiManager.class).getProvider();
         setElement('B', new Button(
-                p -> ItemBuilders.of(XMaterial.ARROW).displayName("&6&l<< Back").addLoreLine("&6&lClick &fto go back to the game selector!").build(),
+                p -> ItemBuilders.of(SMaterial.ARROW).displayName("&6&l<< Back").addLoreLine("&6&lClick &fto go back to the game selector!").build(),
                 e -> Bukkit.getScheduler().runTaskLater(plugin, () -> manager.openGUI(new GameBrowserMenu(plugin), e.getWhoClicked()), 1L),
                 Sound.CLICK,
                 0.5f
@@ -46,7 +46,7 @@ public class SGMenu extends InventoryGUI implements UpdatingGUI {
                     playersInSG += nexusServer.getPlayers().size();
                 }
             }
-            return ItemBuilders.of(XMaterial.DIAMOND_SWORD).displayName("&a&lSurvival Games").setLore(List.of("&7Drop into the arena, gear up,", "&7and outplay your oponents", "&7in this high-stakes PvP showdown.", "&d&lPlayers &f" + playersInSG)).build();
+            return ItemBuilders.of(SMaterial.DIAMOND_SWORD).displayName("&a&lSurvival Games").setLore(List.of("&7Drop into the arena, gear up,", "&7and outplay your oponents", "&7in this high-stakes PvP showdown.", "&d&lPlayers &f" + playersInSG)).build();
         }));
         
         for (NexusServer nexusServer : NexusReborn.getServerRegistry()) {
