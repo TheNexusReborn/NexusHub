@@ -41,7 +41,7 @@ public class SGMenu extends InventoryGUI implements UpdatingGUI {
         
         setElement('M', new Element(p -> {
             int playersInSG = 0;
-            for (NexusServer nexusServer : NexusReborn.getServerRegistry()) {
+            for (NexusServer nexusServer : NexusReborn.getServerRegistry().values()) {
                 if (nexusServer.getMode().equalsIgnoreCase("survivalgames")) {
                     playersInSG += nexusServer.getPlayers().size();
                 }
@@ -49,22 +49,24 @@ public class SGMenu extends InventoryGUI implements UpdatingGUI {
             return ItemBuilders.of(SMaterial.DIAMOND_SWORD).displayName("&a&lSurvival Games").setLore(List.of("&7Drop into the arena, gear up,", "&7and outplay your oponents", "&7in this high-stakes PvP showdown.", "&d&lPlayers &f" + playersInSG)).build();
         }));
         
-        for (NexusServer nexusServer : NexusReborn.getServerRegistry()) {
+        for (NexusServer nexusServer : NexusReborn.getServerRegistry().values()) {
             if (nexusServer.getMode().equalsIgnoreCase("survivalgames")) {
                 this.addElement(new ServerElement(plugin, nexusServer));
             }
         }
         
-        NexusReborn.getServerRegistry().addRegisterListener((name, nexusServer) -> {
-            if (nexusServer.getMode().equalsIgnoreCase("survivalgames")) {
-                addElement(new ServerElement(plugin, nexusServer));
-            }
-        });
-        
-        NexusReborn.getServerRegistry().addUnregisterListener((name, nexusServer) -> {
-            if (nexusServer.getMode().equalsIgnoreCase("survivalgames")) {
-                //This should work because I have an equals and hashcode method on the name of the server in the ServerElement class
-                dynamicElements.remove(new ServerElement(plugin, nexusServer));
+        NexusReborn.getServerRegistry().addListener(c -> {
+            if (c.added() != null) {
+                NexusServer nexusServer = c.added();
+                if (nexusServer.getMode().equalsIgnoreCase("survivalgames")) {
+                    addElement(new ServerElement(plugin, nexusServer));
+                }
+            } else if (c.removed() != null) {
+                NexusServer nexusServer = c.removed();
+                if (nexusServer.getMode().equalsIgnoreCase("survivalgames")) {
+                    //This should work because I have an equals and hashcode method on the name of the server in the ServerElement class
+                    dynamicElements.remove(new ServerElement(plugin, nexusServer));
+                }
             }
         });
     }

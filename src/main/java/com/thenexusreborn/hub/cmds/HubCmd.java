@@ -24,7 +24,7 @@ public class HubCmd implements CommandExecutor {
 
         NexusPlayer nexusPlayer = NexusReborn.getPlayerManager().getNexusPlayer(player.getUniqueId());
         
-        NexusReborn.getServerRegistry().forEach(server -> {
+        NexusReborn.getServerRegistry().values().forEach(server -> {
             if (server instanceof VirtualServer virtualServer) {
                 virtualServer.quit(nexusPlayer);
             }
