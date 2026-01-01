@@ -6,6 +6,7 @@ import com.stardevllc.itembuilder.ItemBuilders;
 import com.stardevllc.itembuilder.common.ItemBuilder;
 import com.stardevllc.smaterial.SMaterial;
 import com.stardevllc.starcore.api.ui.element.button.Button;
+import com.stardevllc.starlib.helper.StringHelper;
 import com.stardevllc.starlib.time.TimeFormat;
 import com.thenexusreborn.api.NexusReborn;
 import com.thenexusreborn.api.server.NexusServer;
@@ -15,8 +16,7 @@ import com.thenexusreborn.hub.api.ServerSelectEvent;
 import com.thenexusreborn.nexuscore.util.MsgType;
 import org.bukkit.Bukkit;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class ServerElement extends Button {
     private NexusServer server;
@@ -33,6 +33,7 @@ public class ServerElement extends Button {
                 itemBuilder.addLoreLine("&4&lOFFLINE");
             } else {
                 JsonObject stateObject = (JsonObject) new JsonParser().parse(server.getState());
+                String mode = StringHelper.titlize(stateObject.get("mode").getAsString());
                 String map = stateObject.get("map").getAsString();
                 String type = stateObject.get("type").getAsString();
                 String state = stateObject.get("state").getAsString().toLowerCase();
@@ -49,7 +50,8 @@ public class ServerElement extends Button {
                         itemBuilder.material(SMaterial.EMERALD_BLOCK);
                         itemBuilder.displayName("&a" + server.getName());
                         JsonObject playersObject = stateObject.getAsJsonObject("playerCounts");
-                        itemBuilder.setLore(List.of("&eMap: &b" + map,
+                        itemBuilder.setLore(List.of("&eMode: &b" + mode,
+                                "&eMap: &b" + map,
                                 "&eTime: &a" + stateObject.get("time").getAsInt() + "s",
                                 "&d" + playersObject.get("playing").getAsInt() + "&e/&5" + server.getMaxPlayers()));
                     } else if (state.equalsIgnoreCase("MAP_EDITING")) {
@@ -73,12 +75,17 @@ public class ServerElement extends Button {
                         JsonObject timeObject = stateObject.getAsJsonObject("time");
                         JsonObject playersObject = stateObject.getAsJsonObject("teamCounts");
                         
+                        List<String> lore = new LinkedList<>();
+                        lore.add("&eMode: &b:" + mode);
+                        
                         if (state.startsWith("warmup")) {
                             itemBuilder.setLore(List.of("&e&lWARMUP",
+                                    "&eMode: &b:" + mode, 
                                     "&eTime: " + timeObject.get("main").getAsInt() + "s",
                                     "&d" + (playersObject.get("tributes").getAsInt() + playersObject.get("spectators").getAsInt()) + "&e/&5" + server.getMaxPlayers()));
                         } else if (state.startsWith("ingame")) {
                             itemBuilder.setLore(List.of("&a&lINGAME",
+                                    "&eMode: &b:" + mode,
                                     "&aTributes: &f" + playersObject.get("tributes").getAsInt(),
                                     "&cSpectators: &f" + playersObject.get("spectators").getAsInt(),
                                     "&dMutations: &f" + playersObject.get("mutations").getAsInt(),
@@ -86,6 +93,7 @@ public class ServerElement extends Button {
                                     "&3Time: &f" + new TimeFormat("%00m%%00s%").format(timeObject.get("main").getAsLong())));
                         } else if (state.contains("deathmatch")) {
                             itemBuilder.setLore(List.of("&c&lDEATHMATCH",
+                                    "&eMode: &b:" + mode,
                                     "&aTributes: &f" + playersObject.get("tributes").getAsInt(),
                                     "&cSpectators: &f" + playersObject.get("spectators").getAsInt(),
                                     "",
@@ -93,6 +101,7 @@ public class ServerElement extends Button {
                         } else {
                             itemBuilder.setLore(List.of("&6&lENDING"));
                         }
+                        itemBuilder.setLore(lore);
                     }
                 }
             }
