@@ -1,10 +1,10 @@
 package com.thenexusreborn.hub.menu;
 
-import com.stardevllc.itembuilder.ItemBuilders;
 import com.stardevllc.smaterial.SMaterial;
-import com.stardevllc.starcore.api.ui.GuiManager;
-import com.stardevllc.starcore.api.ui.element.button.Button;
-import com.stardevllc.starcore.api.ui.gui.InventoryGUI;
+import com.stardevllc.staritems.ItemBuilders;
+import com.stardevllc.ui.GuiManager;
+import com.stardevllc.ui.element.button.Button;
+import com.stardevllc.ui.gui.InventoryGUI;
 import com.thenexusreborn.hub.NexusHub;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;

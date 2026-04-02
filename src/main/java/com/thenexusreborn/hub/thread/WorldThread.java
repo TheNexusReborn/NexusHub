@@ -1,6 +1,6 @@
 package com.thenexusreborn.hub.thread;
 
-import com.stardevllc.starcore.utils.StarThread;
+import com.stardevllc.StarThread;
 import com.thenexusreborn.hub.NexusHub;
 import org.bukkit.World;
 

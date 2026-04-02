@@ -1,12 +1,12 @@
 package com.thenexusreborn.hub.menu;
 
-import com.stardevllc.itembuilder.ItemBuilders;
 import com.stardevllc.smaterial.SMaterial;
-import com.stardevllc.starcore.api.ui.GuiManager;
-import com.stardevllc.starcore.api.ui.element.Element;
-import com.stardevllc.starcore.api.ui.element.button.Button;
-import com.stardevllc.starcore.api.ui.gui.InventoryGUI;
-import com.stardevllc.starcore.api.ui.gui.UpdatingGUI;
+import com.stardevllc.staritems.ItemBuilders;
+import com.stardevllc.ui.GuiManager;
+import com.stardevllc.ui.element.Element;
+import com.stardevllc.ui.element.button.Button;
+import com.stardevllc.ui.gui.InventoryGUI;
+import com.stardevllc.ui.gui.UpdatingGUI;
 import com.thenexusreborn.api.NexusReborn;
 import com.thenexusreborn.api.server.NexusServer;
 import com.thenexusreborn.hub.NexusHub;
@@ -18,6 +18,8 @@ import java.util.*;
 public class SGMenu extends InventoryGUI implements UpdatingGUI {
 
 //    private static final Gson GSON = new GsonBuilder().create();
+    
+    private NexusHub plugin;
         
     public SGMenu(NexusHub plugin, UUID player) {
         super("&6&lSurvival Games", player, new String[] {
@@ -28,6 +30,8 @@ public class SGMenu extends InventoryGUI implements UpdatingGUI {
                 "SSSSSSSSS",
                 "SSSSSSSSS"
         });
+        
+        this.plugin = plugin;
         
         this.setDynamicChar('S');
         
@@ -55,19 +59,19 @@ public class SGMenu extends InventoryGUI implements UpdatingGUI {
             }
         }
         
-        NexusReborn.getServerRegistry().addListener(c -> {
-            if (c.added() != null) {
-                NexusServer nexusServer = c.added();
-                if (nexusServer.getMode().equalsIgnoreCase("survivalgames")) {
-                    addElement(new ServerElement(plugin, nexusServer));
-                }
-            } else if (c.removed() != null) {
-                NexusServer nexusServer = c.removed();
-                if (nexusServer.getMode().equalsIgnoreCase("survivalgames")) {
-                    //This should work because I have an equals and hashcode method on the name of the server in the ServerElement class
-                    dynamicElements.remove(new ServerElement(plugin, nexusServer));
-                }
+        NexusReborn.getServerRegistry().addRegisterListener(e -> handleRegistryEvents(e.value(), e.oldValue()));
+    }
+    
+    private void handleRegistryEvents(NexusServer added, NexusServer removed) {
+        if (added != null) {
+            if (added.getMode().equalsIgnoreCase("survivalgames")) {
+                addElement(new ServerElement(plugin, added));
             }
-        });
+        } else if (removed != null) {
+            if (removed.getMode().equalsIgnoreCase("survivalgames")) {
+                //This should work because I have an equals and hashcode method on the name of the server in the ServerElement class
+                dynamicElements.remove(new ServerElement(plugin, removed));
+            }
+        }
     }
 }

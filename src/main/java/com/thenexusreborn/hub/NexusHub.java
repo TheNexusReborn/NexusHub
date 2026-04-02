@@ -1,11 +1,12 @@
 package com.thenexusreborn.hub;
 
-import com.stardevllc.itembuilder.ItemBuilders;
+import com.stardevllc.registry.PluginKey;
 import com.stardevllc.smaterial.SMaterial;
 import com.stardevllc.starchat.rooms.ChatRoom;
-import com.stardevllc.starcore.api.ui.GuiManager;
+import com.stardevllc.staritems.ItemBuilders;
 import com.stardevllc.staritems.model.CustomItem;
 import com.stardevllc.staritems.model.ItemRegistry;
+import com.stardevllc.ui.GuiManager;
 import com.thenexusreborn.api.NexusReborn;
 import com.thenexusreborn.api.server.NexusServer;
 import com.thenexusreborn.api.util.NetworkType;
@@ -86,10 +87,12 @@ public class NexusHub extends NexusSpigotPlugin {
 
         new PlayerAndEntityThread(this).start();
         new WorldThread(this).start();
-
-        this.gameBrowserItem = new CustomItem(this, "gamebrowser", ItemBuilders.of(SMaterial.COMPASS).displayName("&e&lGAME SELECTOR &7&o(Right Click)"));
+        
+        PluginKey browserKey = PluginKey.of(this, "gamebrowser");
+        this.gameBrowserItem = new CustomItem(this, browserKey, "gamebrowser", ItemBuilders.of(SMaterial.COMPASS).displayName("&e&lGAME SELECTOR &7&o(Right Click)"));
         
         this.gameBrowserItem.addEventHandler(PlayerInteractEvent.class, e -> {
+            System.out.println("Game Browser Handler");
             Player player = e.getPlayer();
             if (!player.getWorld().equals(getHubWorld())) {
                 return;
@@ -104,7 +107,7 @@ public class NexusHub extends NexusSpigotPlugin {
         });
         
         ItemRegistry itemRegistry = Bukkit.getServicesManager().getRegistration(ItemRegistry.class).getProvider();
-        itemRegistry.register(gameBrowserItem);
+        itemRegistry.register(browserKey, gameBrowserItem);
     }
 
     public CustomItem getGameBrowserItem() {
