@@ -88,11 +88,9 @@ public class NexusHub extends NexusSpigotPlugin {
         new PlayerAndEntityThread(this).start();
         new WorldThread(this).start();
         
-        PluginKey browserKey = PluginKey.of(this, "gamebrowser");
-        this.gameBrowserItem = new CustomItem(this, browserKey, "gamebrowser", ItemBuilders.of(SMaterial.COMPASS).displayName("&e&lGAME SELECTOR &7&o(Right Click)"));
+        this.gameBrowserItem = new CustomItem(this, ItemBuilders.of(SMaterial.COMPASS).displayName("&e&lGAME SELECTOR &7&o(Right Click)"));
         
         this.gameBrowserItem.addEventHandler(PlayerInteractEvent.class, e -> {
-            System.out.println("Game Browser Handler");
             Player player = e.getPlayer();
             if (!player.getWorld().equals(getHubWorld())) {
                 return;
@@ -107,7 +105,8 @@ public class NexusHub extends NexusSpigotPlugin {
         });
         
         ItemRegistry itemRegistry = Bukkit.getServicesManager().getRegistration(ItemRegistry.class).getProvider();
-        itemRegistry.register(browserKey, gameBrowserItem);
+        var result = itemRegistry.register(PluginKey.of(this, "gamebrowser"), gameBrowserItem);
+        gameBrowserItem.setKey(result.key());
     }
 
     public CustomItem getGameBrowserItem() {
