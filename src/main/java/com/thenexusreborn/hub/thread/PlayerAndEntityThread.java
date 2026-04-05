@@ -1,6 +1,6 @@
 package com.thenexusreborn.hub.thread;
 
-import com.stardevllc.StarThread;
+import com.stardevllc.minecraft.StarThread;
 import com.thenexusreborn.hub.NexusHub;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

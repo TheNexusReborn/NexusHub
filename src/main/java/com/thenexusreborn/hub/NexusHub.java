@@ -1,12 +1,12 @@
 package com.thenexusreborn.hub;
 
-import com.stardevllc.registry.PluginKey;
-import com.stardevllc.smaterial.SMaterial;
+import com.stardevllc.minecraft.registry.PluginKey;
+import com.stardevllc.minecraft.smaterial.SMaterial;
 import com.stardevllc.starchat.rooms.ChatRoom;
-import com.stardevllc.staritems.ItemBuilders;
+import com.stardevllc.starcore.ItemBuilders;
 import com.stardevllc.staritems.model.CustomItem;
 import com.stardevllc.staritems.model.ItemRegistry;
-import com.stardevllc.ui.GuiManager;
+import com.stardevllc.minecraft.ui.GuiManager;
 import com.thenexusreborn.api.NexusReborn;
 import com.thenexusreborn.api.server.NexusServer;
 import com.thenexusreborn.api.util.NetworkType;

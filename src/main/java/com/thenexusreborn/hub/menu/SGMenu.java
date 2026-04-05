@@ -1,12 +1,12 @@
 package com.thenexusreborn.hub.menu;
 
-import com.stardevllc.smaterial.SMaterial;
-import com.stardevllc.staritems.ItemBuilders;
-import com.stardevllc.ui.GuiManager;
-import com.stardevllc.ui.element.Element;
-import com.stardevllc.ui.element.button.Button;
-import com.stardevllc.ui.gui.InventoryGUI;
-import com.stardevllc.ui.gui.UpdatingGUI;
+import com.stardevllc.minecraft.smaterial.SMaterial;
+import com.stardevllc.starcore.ItemBuilders;
+import com.stardevllc.minecraft.ui.GuiManager;
+import com.stardevllc.minecraft.ui.element.Element;
+import com.stardevllc.minecraft.ui.element.button.Button;
+import com.stardevllc.minecraft.ui.gui.InventoryGUI;
+import com.stardevllc.minecraft.ui.gui.UpdatingGUI;
 import com.thenexusreborn.api.NexusReborn;
 import com.thenexusreborn.api.server.NexusServer;
 import com.thenexusreborn.hub.NexusHub;

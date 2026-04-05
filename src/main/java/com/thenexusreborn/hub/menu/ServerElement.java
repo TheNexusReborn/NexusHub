@@ -2,12 +2,12 @@ package com.thenexusreborn.hub.menu;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.stardevllc.itembuilder.common.ItemBuilder;
-import com.stardevllc.smaterial.SMaterial;
-import com.stardevllc.staritems.ItemBuilders;
+import com.stardevllc.minecraft.itembuilder.ItemBuilder;
+import com.stardevllc.minecraft.smaterial.SMaterial;
+import com.stardevllc.starcore.ItemBuilders;
 import com.stardevllc.starlib.helper.StringHelper;
 import com.stardevllc.starlib.time.TimeFormat;
-import com.stardevllc.ui.element.button.Button;
+import com.stardevllc.minecraft.ui.element.button.Button;
 import com.thenexusreborn.api.NexusReborn;
 import com.thenexusreborn.api.server.NexusServer;
 import com.thenexusreborn.api.util.NetworkType;
